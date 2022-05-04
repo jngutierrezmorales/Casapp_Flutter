@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "497454670720",
+    "project_id": "casapp-fpgs",
+    "storage_bucket": "casapp-fpgs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497454670720:android:5afdfabad1c446a2fcd765",
+        "android_client_info": {
+          "package_name": "com.juan.casapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497454670720-2cpl86ieekk7psamghgnl2dsjp9tg7r6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG5M8-5h5TkOwlv_N2SM2-M0bObbfEzdo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497454670720-2cpl86ieekk7psamghgnl2dsjp9tg7r6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
