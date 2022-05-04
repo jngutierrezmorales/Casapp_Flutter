@@ -40,80 +40,83 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      body: BlocBuilder<LoginBloc, LoginState>(
-        builder: (context, state) {
-          if (state is LoginSuccess) _onLogged();
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: SingleChildScrollView(
-                reverse: true,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'CASAPP',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                      ),
-                    ),
-                    SizedBox(
-                      height: height * 0.01,
-                    ),
-                    Image.asset(
-                      'assets/imgs/casapp_logo.png',
-                    ),
-                    SizedBox(
-                      height: height * 0.05,
-                    ),
-                    Center(
-                      child: Form(
-                        child: Column(
-                          children: [
-                            _buildTextFields(),
-                            SizedBox(
-                              height: height * 0.05,
-                            ),
-                            Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      minimumSize: Size(100, 40),
-                                    ),
-                                    onPressed: () => (state is LoginInProgress)
-                                        ? null
-                                        : _postLogin(),
-                                    child: const Text("Acceder"),
-                                  ),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      minimumSize: Size(100, 40),
-                                    ),
-                                    onPressed: () => (state is LoginInitialState)
-                                        ? _toRegister()
-                                        : null,
-                                    child: const Text("Crear usuario"),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: BlocBuilder<LoginBloc, LoginState>(
+          builder: (context, state) {
+            if (state is LoginSuccess) _onLogged();
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: SingleChildScrollView(
+                  reverse: true,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'CASAPP',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
                         ),
                       ),
-                    ),
-                  ],
+                      SizedBox(
+                        height: height * 0.01,
+                      ),
+                      Image.asset(
+                        'assets/imgs/casapp_logo.png',
+                      ),
+                      SizedBox(
+                        height: height * 0.05,
+                      ),
+                      Center(
+                        child: Form(
+                          child: Column(
+                            children: [
+                              _buildTextFields(),
+                              SizedBox(
+                                height: height * 0.05,
+                              ),
+                              Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        minimumSize: Size(100, 40),
+                                      ),
+                                      onPressed: () => (state is LoginInProgress)
+                                          ? null
+                                          : _postLogin(),
+                                      child: const Text("Acceder"),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        minimumSize: Size(100, 40),
+                                      ),
+                                      onPressed: () => (state is LoginInitialState)
+                                          ? _toRegister()
+                                          : null,
+                                      child: const Text("Crear usuario"),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

@@ -17,10 +17,8 @@ class AuthService extends AuthServiceProtocol {
   @override
   Future<bool> firebaseSignIn(String username, String password) async {
     try {
-      final result = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: username,
-          password: password
-      );
+      final result = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: username, password: password);
       if (result.user == null) {
         return false;
       }
@@ -49,7 +47,7 @@ class AuthService extends AuthServiceProtocol {
   }
 
   @override
-  Future<void> updateUserProfile(String name, String photo) async {
+  Future<void> firebaseUpdateUserProfile(String name, String photo) async {
     if (FirebaseAuth.instance.currentUser != null) {
       await FirebaseAuth.instance.currentUser?.updateDisplayName(name);
       await FirebaseAuth.instance.currentUser?.updatePhotoURL(photo);
@@ -57,23 +55,23 @@ class AuthService extends AuthServiceProtocol {
   }
 
   @override
-  Future<void> sendVerificationEmail() async {
+  Future<void> firebaseSendVerificationEmail() async {
     await FirebaseAuth.instance.setLanguageCode("es");
     await FirebaseAuth.instance.currentUser?.sendEmailVerification();
   }
 
   @override
-  Future<void> setPassword(String password) async {
+  Future<void> firebaseSetPassword(String password) async {
     await FirebaseAuth.instance.currentUser?.updatePassword(password);
   }
 
   @override
-  Future<void> passwordResetEmail(String email) async {
+  Future<void> firebasePasswordResetEmail(String email) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
 
   @override
-  Future<void> signInAnonymously() async {
+  Future<void> firebaseSignInAnonymously() async {
     try {
       final userCredential = await FirebaseAuth.instance.signInAnonymously();
       print("Signed in with temporary account.");
@@ -88,7 +86,8 @@ class AuthService extends AuthServiceProtocol {
     }
   }
 
-  Future<void> signOut() async {
+  @override
+  Future<void> firebaseSignOut() async {
     await FirebaseAuth.instance.signOut();
   }
 }

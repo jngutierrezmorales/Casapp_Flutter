@@ -1,4 +1,3 @@
-import 'package:casapp/src/classes/managers/route_manager.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,34 +13,37 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Casapp'),
-        //automaticallyImplyLeading: false,
-      ),
-      drawer: MenuDrawer(),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      CardHome(),
-                      CardHome(),
-                      CardHome(),
-                      CardHome(),
-                      CardHome(),
-                    ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Casapp'),
+          //automaticallyImplyLeading: false,
+        ),
+        drawer: MenuDrawer(),
+        body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        CardHome(),
+                        CardHome(),
+                        CardHome(),
+                        CardHome(),
+                        CardHome(),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            BarBottom(),
-          ],
+              BarBottom(),
+            ],
+          ),
         ),
       ),
     );
@@ -194,6 +196,9 @@ class MenuDrawer extends StatelessWidget {
             height: 20,
           ),
           buildListTile('Buscar', Icons.search, () {
+            Navigator.of(context).pushReplacementNamed('/');
+          }),
+          buildListTile('Filtros', Icons.filter_alt, () {
             Navigator.of(context).pushReplacementNamed('/');
           }),
           buildListTile('Opciones', Icons.menu, () {

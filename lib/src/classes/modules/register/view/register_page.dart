@@ -40,81 +40,84 @@ class _RegisterPageState extends State<RegisterPage> {
     final double width = MediaQuery.of(context).size.width;
     final double height = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      body: BlocBuilder<RegisterBloc, RegisterState>(
-        builder: (context, state) {
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: SingleChildScrollView(
-                reverse: true,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: Form(
-                        child: Column(
-                          children: [
-                            const Text(
-                              'Crea una nueva cuenta',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 30,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: BlocBuilder<RegisterBloc, RegisterState>(
+          builder: (context, state) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: SingleChildScrollView(
+                  reverse: true,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Form(
+                          child: Column(
+                            children: [
+                              const Text(
+                                'Crea una nueva cuenta',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: height * 0.05,
-                            ),
-                            Image.asset(
-                              'assets/imgs/registro_logo.png',
-                            ),
-                            SizedBox(
-                              height: height * 0.05,
-                            ),
-                            _buildTextFields(),
-                            SizedBox(
-                              height: height * 0.05,
-                            ),
-                            Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      minimumSize: Size(100, 40),
-                                    ),
-                                    onPressed: () =>
-                                        (state is RegisterInProgress)
-                                            ? null
-                                            : _postRegister(),
-                                    child: const Text("Confirmar"),
-                                  ),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      minimumSize: Size(100, 40),
-                                    ),
-                                    onPressed: () =>
-                                        (state is RegisterInitialState)
-                                            ? _cancelToLogin()
-                                            : null,
-                                    child: const Text("Cancelar"),
-                                  ),
-                                ],
+                              SizedBox(
+                                height: height * 0.05,
                               ),
-                            )
-                          ],
+                              Image.asset(
+                                'assets/imgs/registro_logo.png',
+                              ),
+                              SizedBox(
+                                height: height * 0.05,
+                              ),
+                              _buildTextFields(),
+                              SizedBox(
+                                height: height * 0.05,
+                              ),
+                              Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        minimumSize: Size(100, 40),
+                                      ),
+                                      onPressed: () =>
+                                          (state is RegisterInProgress)
+                                              ? null
+                                              : _postRegister(),
+                                      child: const Text("Confirmar"),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        minimumSize: Size(100, 40),
+                                      ),
+                                      onPressed: () =>
+                                          (state is RegisterInitialState)
+                                              ? _cancelToLogin()
+                                              : null,
+                                      child: const Text("Cancelar"),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
