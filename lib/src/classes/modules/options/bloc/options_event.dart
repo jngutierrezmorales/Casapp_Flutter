@@ -1,0 +1,3 @@
+class OptionsEvent {
+  const OptionsEvent();
+}

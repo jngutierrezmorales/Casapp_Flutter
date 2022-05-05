@@ -4,9 +4,8 @@ import '../providers/routing/routing_provider.dart';
 // constructor de rutas de pantalla y su animacion
 
 // enum de las rutas de la app
-enum RouteType { login, register, home, detail }
+enum RouteType { login, register, home, search, filters, options, detail, logout }
 
-// extension de RouteType con getter del nombre de la ruta
 extension RouteTypeExtension on RouteType {
   String get name {
     switch (this) {
@@ -16,8 +15,16 @@ extension RouteTypeExtension on RouteType {
         return "register";
       case RouteType.home:
         return "home";
+      case RouteType.search:
+        return "search";
+      case RouteType.filters:
+        return "filters";
+      case RouteType.options:
+        return "options";
       case RouteType.detail:
         return "detail";
+      case RouteType.logout:
+        return "logout";
     }
   }
 }
@@ -51,6 +58,26 @@ class RouteManager {
           return _getSlidePageRoute(
               view: _routingProvider.homeRouting(),
               routeName: arguments.routeType.name);
+        case RouteType.search:
+          return _getSlidePageRoute(
+            view: _routingProvider.searchRouting(),
+            routeName: arguments.routeType.name,
+          );
+        case RouteType.filters:
+          return _getSlidePageRoute(
+            view: _routingProvider.filtersRouting(),
+            routeName: arguments.routeType.name,
+          );
+        case RouteType.options:
+          return _getSlidePageRoute(
+            view: _routingProvider.optionsRouting(),
+            routeName: arguments.routeType.name,
+          );
+        case RouteType.logout:
+          return _getSlidePageRoute(
+            view: _routingProvider.loginRouting(),
+            routeName: arguments.routeType.name,
+          );
         default:
           return _getSlidePageRoute(
               view: _routingProvider.homeRouting(),

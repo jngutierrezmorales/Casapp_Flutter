@@ -1,1 +1,1 @@
-const google_maps_key = "";
+const googleMapsKey = "";

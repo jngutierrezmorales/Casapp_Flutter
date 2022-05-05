@@ -1,14 +1,15 @@
 import 'package:casapp/src/classes/managers/route_manager.dart';
+import 'package:casapp/src/classes/modules/home/bloc/home_bloc.dart';
 import 'package:casapp/src/classes/modules/login/bloc/login_bloc.dart';
 import 'package:casapp/src/classes/modules/register/bloc/register_bloc.dart';
 import 'package:casapp/src/classes/providers/routing/routing_provider.dart';
 import 'package:casapp/src/classes/services/service_provider.dart';
-import 'package:casapp/src/classes/widgets/home/bloc/home_bloc.dart';
-import 'package:casapp/src/classes/widgets/home/bloc/home_state.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+
+// async -> Future, async* -> Stream
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +23,7 @@ Future<void> main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => HomeBloc(HomeInitialState()),
+          create: (_) => HomeBloc(_routingProvider.homeRouting(), _serviceProvider.authService()),
         ),
         BlocProvider(
           create: (_) => LoginBloc(

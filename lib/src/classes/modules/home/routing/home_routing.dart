@@ -8,8 +8,26 @@ class HomeRouting extends StatelessWidget {
 
   late final NavigationManager _navigationManager;
 
+  HomeRouting(this._navigationManager);
+
   @override
   Widget build(BuildContext context) {
-    return HomePage();
+    return HomePage(this);
+  }
+
+  void navigateToSearch(BuildContext context) {
+    _navigationManager.showSearch(context);
+  }
+
+  void navigateToFilters(BuildContext context) {
+    _navigationManager.showFilters(context);
+  }
+
+  void navigateToOptions(BuildContext context) {
+    _navigationManager.showOptions(context);
+  }
+
+  void logoutToLogin(BuildContext context) {
+    _navigationManager.logoutToLogin(context);
   }
 }

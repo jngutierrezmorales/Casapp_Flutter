@@ -1,4 +1,3 @@
-import 'package:casapp/src/classes/managers/route_manager.dart';
 import 'package:casapp/src/classes/modules/register/bloc/register_event.dart';
 import 'package:casapp/src/classes/modules/register/bloc/register_state.dart';
 import 'package:casapp/src/classes/services/protocols/auth_service_protocol.dart';

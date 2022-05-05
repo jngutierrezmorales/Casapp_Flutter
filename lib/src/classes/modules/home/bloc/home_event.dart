@@ -1,7 +1,37 @@
 part of 'home_bloc.dart';
 
-@immutable
-abstract class HomeEvent {
+class HomeEvent {
   const HomeEvent();
 }
 
+class HomeNavigateToSearchEvent extends HomeEvent {
+  final BuildContext context;
+
+  HomeNavigateToSearchEvent({
+    required this.context,
+  });
+}
+
+class HomeNavigateToFiltersEvent extends HomeEvent {
+  final BuildContext context;
+
+  HomeNavigateToFiltersEvent({
+    required this.context,
+  });
+}
+
+class HomeNavigateToOptionsEvent extends HomeEvent {
+  final BuildContext context;
+
+  HomeNavigateToOptionsEvent({
+    required this.context,
+  });
+}
+
+class HomeToLogoutEvent extends HomeEvent {
+  final BuildContext context;
+
+  HomeToLogoutEvent({
+    required this.context,
+  });
+}

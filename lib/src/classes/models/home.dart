@@ -1,29 +1,33 @@
-import 'package:flutter/foundation.dart';
-
 enum Affordability {
-  Affordable,
-  Pricey,
-  Luxurious,
+  affordable,
+  pricey,
+  luxurious,
+}
+
+enum State {
+  sell,
+  rent,
+  share,
 }
 
 class Home {
-  final String id;
-  final String title;
-  final String state;
-  final String imageUrl;
-  final double price;
-  final int size;
-  final String location;
-  final Affordability affordability;
+  String id;
+  String title;
+  State? state;
+  String imageUrl;
+  double price;
+  double size;
+  String location;
+  Affordability? affordability;
 
-  const Home({
-    required this.id,
-    required this.title,
-    required this.state,
-    required this.imageUrl,
-    required this.price,
-    required this.size,
-    required this.location,
-    required this.affordability,
+  Home({
+    this.id = '',
+    this.title = '',
+    this.state,
+    this.imageUrl = '',
+    this.price = 0.0,
+    this.size = 0.0,
+    this.location = '',
+    this.affordability,
   });
 }

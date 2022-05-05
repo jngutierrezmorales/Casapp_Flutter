@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:casapp/src/classes/modules/login/routing/login_routing.dart';
-import 'package:casapp/src/classes/modules/register/bloc/register_event.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../services/protocols/auth_service_protocol.dart';

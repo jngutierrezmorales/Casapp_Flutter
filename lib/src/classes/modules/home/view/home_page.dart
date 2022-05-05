@@ -1,13 +1,33 @@
+import 'package:casapp/src/classes/modules/filters/bloc/filters_bloc.dart';
+import 'package:casapp/src/classes/modules/home/bloc/home_bloc.dart';
+import 'package:casapp/src/classes/modules/home/routing/home_routing.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   static const homePage = "homePage";
 
+  HomeRouting? homeRouting;
+
+  HomePage(this.homeRouting);
+
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState(homeRouting);
 }
 
-class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
+class _HomePageState extends State<HomePage> {
+  HomeRouting? homeRouting;
+
+  _HomePageState(this.homeRouting);
+
+  late HomeBloc _homeBloc;
+
+  @override
+  void initState() {
+    _homeBloc = BlocProvider.of<HomeBloc>(context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
@@ -20,34 +40,117 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           title: const Text('Casapp'),
           //automaticallyImplyLeading: false,
         ),
-        drawer: MenuDrawer(),
-        body: SafeArea(
+        drawer: Drawer(
           child: Column(
-            children: [
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        CardHome(),
-                        CardHome(),
-                        CardHome(),
-                        CardHome(),
-                        CardHome(),
-                      ],
-                    ),
-                  ),
+            children: <Widget>[
+              Container(
+                height: 180,
+                width: double.infinity,
+                padding: EdgeInsets.all(20),
+                alignment: Alignment.centerLeft,
+                color: Colors.blue,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Image.asset('assets/imgs/drawer_logo.png'),
                 ),
               ),
-              BarBottom(),
+              const SizedBox(
+                height: 20,
+              ),
+              ListTile(
+                title: const Text("Buscar"),
+                leading: IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {},
+                ),
+                onTap: _goToSearch,
+              ),
+              const Divider(
+                color: Colors.grey,
+              ),
+              ListTile(
+                title: const Text("Filtros"),
+                leading: IconButton(
+                  icon: const Icon(Icons.filter_alt),
+                  onPressed: () {},
+                ),
+                onTap: _goToFilters,
+              ),
+              const Divider(
+                color: Colors.grey,
+              ),
+              ListTile(
+                title: const Text("Opciones"),
+                leading: IconButton(
+                  icon: const Icon(Icons.menu),
+                  onPressed: () {},
+                ),
+                onTap: _goToOptions,
+              ),
+              const Divider(
+                color: Colors.grey,
+              ),
+              ListTile(
+                title: const Text("Salir"),
+                leading: IconButton(
+                  icon: const Icon(Icons.logout),
+                  onPressed: () {},
+                ),
+                onTap: _logout,
+              ),
+              const Divider(
+                color: Colors.grey,
+              ),
             ],
           ),
+        ),
+        body: BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            return SafeArea(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            CardHome(),
+                            CardHome(),
+                            CardHome(),
+                            CardHome(),
+                            CardHome(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  BarBottom(),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
   }
+
+  _goToSearch() => BlocProvider.of<HomeBloc>(context).add(
+        HomeNavigateToSearchEvent(context: context),
+      );
+
+  _goToFilters() => BlocProvider.of<HomeBloc>(context).add(
+        HomeNavigateToFiltersEvent(context: context),
+      );
+
+  _goToOptions() => BlocProvider.of<HomeBloc>(context).add(
+        HomeNavigateToOptionsEvent(context: context),
+      );
+
+  _logout() => BlocProvider.of<HomeBloc>(context).add(
+        HomeToLogoutEvent(context: context),
+      );
 }
 
 class BarBottom extends StatelessWidget {
@@ -57,7 +160,7 @@ class BarBottom extends StatelessWidget {
       backgroundColor: Colors.blue,
       unselectedItemColor: Colors.white,
       selectedItemColor: Colors.yellow,
-      items: const [
+      items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Viviendas',
@@ -152,61 +255,6 @@ class CardHome extends StatelessWidget {
               ],
             ),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class MenuDrawer extends StatelessWidget {
-  Widget buildListTile(String title, IconData icon, Function tapHandler) {
-    return ListTile(
-      leading: Icon(
-        icon,
-        size: 26,
-      ),
-      title: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.normal,
-        ),
-      ),
-      onTap: () {},
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: 180,
-            width: double.infinity,
-            padding: EdgeInsets.all(20),
-            alignment: Alignment.centerLeft,
-            color: Colors.blue,
-            child: Align(
-              alignment: Alignment.center,
-              child: Image.asset('assets/imgs/drawer_logo.png'),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          buildListTile('Buscar', Icons.search, () {
-            Navigator.of(context).pushReplacementNamed('/');
-          }),
-          buildListTile('Filtros', Icons.filter_alt, () {
-            Navigator.of(context).pushReplacementNamed('/');
-          }),
-          buildListTile('Opciones', Icons.menu, () {
-            Navigator.of(context).pushReplacementNamed('/');
-          }),
-          buildListTile('Salir', Icons.logout, () {
-            Navigator.of(context).pushReplacementNamed('/');
-          }),
         ],
       ),
     );
