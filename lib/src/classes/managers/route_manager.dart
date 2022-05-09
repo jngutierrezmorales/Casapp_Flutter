@@ -4,7 +4,17 @@ import '../providers/routing/routing_provider.dart';
 // constructor de rutas de pantalla y su animacion
 
 // enum de las rutas de la app
-enum RouteType { login, register, home, search, filters, options, detail, logout }
+enum RouteType {
+  login,
+  register,
+  home,
+  favorites,
+  search,
+  filters,
+  options,
+  detail,
+  logout
+}
 
 extension RouteTypeExtension on RouteType {
   String get name {
@@ -15,6 +25,8 @@ extension RouteTypeExtension on RouteType {
         return "register";
       case RouteType.home:
         return "home";
+      case RouteType.favorites:
+        return "favorites";
       case RouteType.search:
         return "search";
       case RouteType.filters:
@@ -57,6 +69,10 @@ class RouteManager {
         case RouteType.home:
           return _getSlidePageRoute(
               view: _routingProvider.homeRouting(),
+              routeName: arguments.routeType.name);
+        case RouteType.favorites:
+          return _getSlidePageRoute(
+              view: _routingProvider.favoritesRouting(),
               routeName: arguments.routeType.name);
         case RouteType.search:
           return _getSlidePageRoute(

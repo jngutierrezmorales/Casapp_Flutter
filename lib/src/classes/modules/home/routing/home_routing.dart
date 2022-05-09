@@ -12,7 +12,11 @@ class HomeRouting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HomePage(this);
+    return HomePage();
+  }
+
+  void navigateToFavorites(BuildContext context) {
+    _navigationManager.showFavorites(context);
   }
 
   void navigateToSearch(BuildContext context) {

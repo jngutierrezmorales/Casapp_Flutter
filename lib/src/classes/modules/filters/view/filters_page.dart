@@ -22,11 +22,89 @@ class _FiltersPageState extends State<FiltersPage> {
 
   late FiltersBloc _filtersBloc;
 
+  bool _newHome = false;
+  bool _goodCondition = false;
+  bool _needsRenovating = false;
+
+  Widget _buildSwitchListTile(
+    String title,
+    String description,
+    bool currentValue,
+    Function updateValue,
+  ) {
+    return SwitchListTile(
+      title: Text(title),
+      value: currentValue,
+      subtitle: Text(
+        description,
+      ),
+      onChanged: null, //TODO:
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text("Filters"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Volver'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.save),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(30),
+            child: const Text(
+              'Personaliza como se muestran los resultados.',
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              children: <Widget>[
+                _buildSwitchListTile(
+                  'Obra nueva',
+                  'Solo se muestran viviendas a estrenar.',
+                  _newHome,
+                  (newValue) {
+                    setState(() {
+                      _newHome = newValue;
+                    });
+                  },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                _buildSwitchListTile(
+                  'Buen estado',
+                  'Se muestran viviendas de segunda mano en buenas condiciones.',
+                  _goodCondition,
+                  (newValue) {
+                    setState(() {
+                      _goodCondition = newValue;
+                    });
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                _buildSwitchListTile(
+                  'A reformar',
+                  'Se muestran viviendas que necesitan reforma para ser habitables.',
+                  _needsRenovating,
+                  (newValue) {
+                    setState(() {
+                      _needsRenovating = newValue;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

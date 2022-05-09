@@ -22,11 +22,57 @@ class _OptionsPageState extends State<OptionsPage> {
 
   late OptionsBloc _optionsBloc;
 
+  bool _toggleAirplaneMode = false;
+  bool _toggleBluetooth = false;
+  bool _toggleWiFi = false;
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Opciones"),
+      ),
       body: Center(
-        child: Text("Options"),
+        child: Column(
+          children: [
+            SwitchListTile(
+              title: Text('Modo Avión'),
+              secondary: Icon(Icons.airplanemode_active),
+              onChanged: (value) {
+                setState(() {
+                  _toggleAirplaneMode = value;
+                });
+              },
+              value: _toggleAirplaneMode,
+            ),
+            Divider(
+              thickness: 1.2,
+            ),
+            SwitchListTile(
+              title: Text('Wi-Fi'),
+              secondary: Icon(Icons.wifi),
+              onChanged: (value) {
+                setState(() {
+                  _toggleWiFi = value;
+                });
+              },
+              value: _toggleWiFi,
+            ),
+            Divider(
+              thickness: 1.2,
+            ),
+            SwitchListTile(
+              title: Text('Bluetooth'),
+              secondary: Icon(Icons.bluetooth),
+              onChanged: (value) {
+                setState(() {
+                  _toggleBluetooth = value;
+                });
+              },
+              value: _toggleBluetooth,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -4,6 +4,14 @@ class HomeEvent {
   const HomeEvent();
 }
 
+class HomeNavigateToFavoritesEvent extends HomeEvent {
+  final BuildContext context;
+
+  HomeNavigateToFavoritesEvent({
+    required this.context,
+  });
+}
+
 class HomeNavigateToSearchEvent extends HomeEvent {
   final BuildContext context;
 

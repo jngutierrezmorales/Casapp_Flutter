@@ -1,4 +1,5 @@
 import 'package:casapp/src/classes/managers/route_manager.dart';
+import 'package:casapp/src/classes/modules/favorites/bloc/favorites_bloc.dart';
 import 'package:casapp/src/classes/modules/home/bloc/home_bloc.dart';
 import 'package:casapp/src/classes/modules/login/bloc/login_bloc.dart';
 import 'package:casapp/src/classes/modules/register/bloc/register_bloc.dart';
@@ -23,7 +24,8 @@ Future<void> main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => HomeBloc(_routingProvider.homeRouting(), _serviceProvider.authService()),
+          create: (_) => HomeBloc(
+              _routingProvider.homeRouting(), _serviceProvider.authService()),
         ),
         BlocProvider(
           create: (_) => LoginBloc(
@@ -31,6 +33,10 @@ Future<void> main() async {
         ),
         BlocProvider(
           create: (_) => RegisterBloc(_routingProvider.registerRouting(),
+              _serviceProvider.authService()),
+        ),
+        BlocProvider(
+          create: (_) => FavoritesBloc(_routingProvider.favoritesRouting(),
               _serviceProvider.authService()),
         ),
       ],
@@ -60,7 +66,10 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Casapp',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.light,
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
       ),
       initialRoute: RouteType.login.name,
       onGenerateRoute: (settings) {

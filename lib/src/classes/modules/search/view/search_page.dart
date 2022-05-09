@@ -21,9 +21,42 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text("Search"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Volver'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.save),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: ListView(
+              children: <Widget>[
+                Center(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.clear),
+                        onPressed: () {},
+                      ),
+                      hintText: 'Search...',
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(30),
+            child: Image.asset('assets/imgs/search_logo.png'),
+            height: 250,
+          ),
+        ],
       ),
     );
   }

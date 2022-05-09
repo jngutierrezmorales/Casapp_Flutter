@@ -1,4 +1,5 @@
 import 'package:casapp/src/classes/managers/navigation_manager.dart';
+import 'package:casapp/src/classes/modules/favorites/routing/favorites_routing.dart';
 import 'package:casapp/src/classes/modules/options/routing/options_routing.dart';
 import 'package:casapp/src/classes/modules/register/routing/register_routing.dart';
 import 'package:casapp/src/classes/modules/search/routing/search_routing.dart';
@@ -27,6 +28,10 @@ class RoutingProvider {
 
   HomeRouting homeRouting() {
     return HomeRouting(_navigationManager);
+  }
+
+  FavoritesRouting favoritesRouting() {
+    return FavoritesRouting(_navigationManager);
   }
 
   SearchRouting searchRouting() {

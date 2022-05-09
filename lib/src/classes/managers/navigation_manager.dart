@@ -4,6 +4,7 @@ import 'package:casapp/src/classes/modules/login/routing/login_routing.dart';
 import 'package:casapp/src/classes/modules/register/routing/register_routing.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../modules/favorites/routing/favorites_routing.dart';
 import '../modules/filters/routing/filters_routing.dart';
 import '../modules/options/routing/options_routing.dart';
 import '../modules/search/routing/search_routing.dart';
@@ -14,6 +15,11 @@ class NavigationManager {
   void showHome(BuildContext context, [bool close = false]) {
     Navigator.pushNamed(context, HomeRouting.routeName,
         arguments: ArgumentsModel(RouteType.home, close));
+  }
+
+  void showFavorites(BuildContext context, [bool close = false]) {
+    Navigator.pushNamed(context, FavoritesRouting.routeName,
+        arguments: ArgumentsModel(RouteType.favorites, close));
   }
 
   void showLogin(BuildContext context, [bool close = false]) {

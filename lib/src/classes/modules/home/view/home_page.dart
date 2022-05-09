@@ -1,31 +1,34 @@
-import 'package:casapp/src/classes/modules/filters/bloc/filters_bloc.dart';
 import 'package:casapp/src/classes/modules/home/bloc/home_bloc.dart';
 import 'package:casapp/src/classes/modules/home/routing/home_routing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class HomePage extends StatefulWidget {
   static const homePage = "homePage";
 
-  HomeRouting? homeRouting;
-
-  HomePage(this.homeRouting);
-
   @override
-  State<HomePage> createState() => _HomePageState(homeRouting);
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  HomeRouting? homeRouting;
-
-  _HomePageState(this.homeRouting);
-
   late HomeBloc _homeBloc;
+  int _selectedTab = 0;
+
+  List<Widget> _widgets = [];
 
   @override
   void initState() {
     _homeBloc = BlocProvider.of<HomeBloc>(context);
+    _loadViews();
     super.initState();
+  }
+
+  void _loadViews() {
+    _widgets = [
+      CardHome(),
+      CardFavorites(),
+    ];
   }
 
   @override
@@ -37,7 +40,7 @@ class _HomePageState extends State<HomePage> {
       onWillPop: () async => false,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Casapp'),
+          title: const Text('Home'),
           //automaticallyImplyLeading: false,
         ),
         drawer: Drawer(
@@ -116,17 +119,32 @@ class _HomePageState extends State<HomePage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            CardHome(),
-                            CardHome(),
-                            CardHome(),
-                            CardHome(),
-                            CardHome(),
+                            _widgets.elementAt(_selectedTab),
                           ],
                         ),
                       ),
                     ),
                   ),
-                  BarBottom(),
+                  SalomonBottomBar(
+                    currentIndex: _selectedTab,
+                    onTap: (position) {
+                      setState(() {
+                        _selectedTab = position;
+                      });
+                    },
+                    items: [
+                      SalomonBottomBarItem(
+                        icon: Icon(Icons.home),
+                        title: Text("Home"),
+                        selectedColor: Colors.black,
+                      ),
+                      SalomonBottomBarItem(
+                        icon: Icon(Icons.favorite),
+                        title: Text("Favoritos"),
+                        selectedColor: Colors.black,
+                      ),
+                    ],
+                  ),
                 ],
               ),
             );
@@ -151,27 +169,6 @@ class _HomePageState extends State<HomePage> {
   _logout() => BlocProvider.of<HomeBloc>(context).add(
         HomeToLogoutEvent(context: context),
       );
-}
-
-class BarBottom extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      backgroundColor: Colors.blue,
-      unselectedItemColor: Colors.white,
-      selectedItemColor: Colors.yellow,
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Viviendas',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: 'Favoritos',
-        ),
-      ],
-    );
-  }
 }
 
 class CardHome extends StatelessWidget {
@@ -257,6 +254,15 @@ class CardHome extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class CardFavorites extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text("Favoritos"),
     );
   }
 }
