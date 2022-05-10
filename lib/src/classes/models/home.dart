@@ -11,16 +11,16 @@ enum State {
 }
 
 class Home {
-  String id;
-  String title;
-  State? state;
-  String imageUrl;
-  double price;
-  double size;
-  String location;
-  Affordability? affordability;
+  final String id;
+  final String title;
+  final State? state;
+  final String imageUrl;
+  final double price;
+  final double size;
+  final String location;
+  final Affordability? affordability;
 
-  Home({
+  const Home({
     this.id = '',
     this.title = '',
     this.state,

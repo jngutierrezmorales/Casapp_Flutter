@@ -18,8 +18,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
     if (event is HomeNavigateToSearchEvent) {
       navigateToSearch(event);
-    } else if (event is HomeNavigateToFavoritesEvent) {
-      navigateToFavorites(event);
     } else if (event is HomeNavigateToFiltersEvent) {
       navigateToFilters(event);
     } else if (event is HomeNavigateToOptionsEvent) {
@@ -27,10 +25,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     } else if (event is HomeToLogoutEvent) {
       logout(event);
     }
-  }
-
-  void navigateToFavorites (HomeNavigateToFavoritesEvent event) {
-    homeRouting.navigateToFavorites(event.context);
   }
 
   void navigateToSearch (HomeNavigateToSearchEvent event) {

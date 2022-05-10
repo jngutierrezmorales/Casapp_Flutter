@@ -15,10 +15,6 @@ class HomeRouting extends StatelessWidget {
     return HomePage();
   }
 
-  void navigateToFavorites(BuildContext context) {
-    _navigationManager.showFavorites(context);
-  }
-
   void navigateToSearch(BuildContext context) {
     _navigationManager.showSearch(context);
   }

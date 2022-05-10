@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../protocols/auth_service_protocol.dart';
 
@@ -12,6 +13,15 @@ class AuthService extends AuthServiceProtocol {
         print('User is signed in!');
       }
     });
+  }
+
+  @override
+  Future<bool> firebaseCheckUser(String username) async {
+    if (FirebaseAuth.instance.currentUser != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override

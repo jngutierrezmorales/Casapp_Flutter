@@ -5,26 +5,32 @@ import '../providers/routing/routing_provider.dart';
 
 // enum de las rutas de la app
 enum RouteType {
+  splash,
   login,
   register,
   home,
+  property,
   favorites,
   search,
   filters,
   options,
   detail,
-  logout
+  logout,
 }
 
 extension RouteTypeExtension on RouteType {
   String get name {
     switch (this) {
+      case RouteType.splash:
+        return "splash";
       case RouteType.login:
         return "login";
       case RouteType.register:
         return "register";
       case RouteType.home:
         return "home";
+      case RouteType.property:
+        return "property";
       case RouteType.favorites:
         return "favorites";
       case RouteType.search:
@@ -58,6 +64,10 @@ class RouteManager {
   Route createRoute(Object? arguments) {
     if (arguments != null && arguments is ArgumentsModel) {
       switch (arguments.routeType) {
+        case RouteType.splash:
+          return _getSlidePageRoute(
+              view: _routingProvider.splashRouting(),
+              routeName: arguments.routeType.name);
         case RouteType.login:
           return _getSlidePageRoute(
               view: _routingProvider.loginRouting(),
@@ -69,6 +79,10 @@ class RouteManager {
         case RouteType.home:
           return _getSlidePageRoute(
               view: _routingProvider.homeRouting(),
+              routeName: arguments.routeType.name);
+        case RouteType.property:
+          return _getSlidePageRoute(
+              view: _routingProvider.propertyRouting(),
               routeName: arguments.routeType.name);
         case RouteType.favorites:
           return _getSlidePageRoute(
@@ -89,15 +103,17 @@ class RouteManager {
             view: _routingProvider.optionsRouting(),
             routeName: arguments.routeType.name,
           );
+        //TODO: change to detailrouting
+        case RouteType.detail:
+          return _getSlidePageRoute(
+            view: _routingProvider.optionsRouting(),
+            routeName: arguments.routeType.name,
+          );
         case RouteType.logout:
           return _getSlidePageRoute(
             view: _routingProvider.loginRouting(),
             routeName: arguments.routeType.name,
           );
-        default:
-          return _getSlidePageRoute(
-              view: _routingProvider.homeRouting(),
-              routeName: arguments.routeType.name);
       }
     } else {
       return _getSlidePageRoute(

@@ -2,7 +2,9 @@ import 'package:casapp/src/classes/managers/route_manager.dart';
 import 'package:casapp/src/classes/modules/favorites/bloc/favorites_bloc.dart';
 import 'package:casapp/src/classes/modules/home/bloc/home_bloc.dart';
 import 'package:casapp/src/classes/modules/login/bloc/login_bloc.dart';
+import 'package:casapp/src/classes/modules/property/bloc/property_bloc.dart';
 import 'package:casapp/src/classes/modules/register/bloc/register_bloc.dart';
+import 'package:casapp/src/classes/modules/splash/bloc/splash_bloc.dart';
 import 'package:casapp/src/classes/providers/routing/routing_provider.dart';
 import 'package:casapp/src/classes/services/service_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,6 +26,9 @@ Future<void> main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (_) => SplashBloc(_routingProvider.splashRouting()),
+        ),
+        BlocProvider(
           create: (_) => HomeBloc(
               _routingProvider.homeRouting(), _serviceProvider.authService()),
         ),
@@ -36,8 +41,10 @@ Future<void> main() async {
               _serviceProvider.authService()),
         ),
         BlocProvider(
-          create: (_) => FavoritesBloc(_routingProvider.favoritesRouting(),
-              _serviceProvider.authService()),
+          create: (_) => PropertyBloc(_routingProvider.propertyRouting()),
+        ),
+        BlocProvider(
+          create: (_) => FavoritesBloc(_routingProvider.favoritesRouting()),
         ),
       ],
       child: ChangeNotifierProvider(

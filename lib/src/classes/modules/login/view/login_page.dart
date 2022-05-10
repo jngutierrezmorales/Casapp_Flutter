@@ -26,8 +26,8 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   @override
   void initState() {
     _loginBloc = BlocProvider.of<LoginBloc>(context);
-    _usernameController.text = "";
-    _passwordController.text = "";
+    _usernameController.text = "test@test.com";
+    _passwordController.text = "test123";
     super.initState();
   }
 

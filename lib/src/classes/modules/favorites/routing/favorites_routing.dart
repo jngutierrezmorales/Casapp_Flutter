@@ -12,26 +12,6 @@ class FavoritesRouting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FavoritesPage(this);
-  }
-
-  void navigateToHome(BuildContext context) {
-    _navigationManager.showHome(context);
-  }
-
-  void navigateToSearch(BuildContext context) {
-    _navigationManager.showSearch(context);
-  }
-
-  void navigateToFilters(BuildContext context) {
-    _navigationManager.showFilters(context);
-  }
-
-  void navigateToOptions(BuildContext context) {
-    _navigationManager.showOptions(context);
-  }
-
-  void logoutToLogin(BuildContext context) {
-    _navigationManager.logoutToLogin(context);
+    return FavoritesPage();
   }
 }
