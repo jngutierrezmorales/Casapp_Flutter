@@ -117,8 +117,8 @@ class RouteManager {
       }
     } else {
       return _getSlidePageRoute(
-        view: _routingProvider.loginRouting(),
-        routeName: RouteType.login.name,
+        view: _routingProvider.splashRouting(),
+        routeName: RouteType.splash.name,
       );
     }
   }

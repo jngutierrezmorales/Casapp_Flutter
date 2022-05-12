@@ -1,4 +1,4 @@
-import 'home.dart';
+import 'home_model.dart';
 
 const dummyHomes = [
   Home(

@@ -14,4 +14,12 @@ class SplashRouting extends StatelessWidget {
   Widget build(BuildContext context) {
     return SplashPage();
   }
+
+  void navigateToLogin(BuildContext context) {
+    _navigationManager.showLogin(context);
+  }
+
+  void navigateToHome(BuildContext context) {
+    _navigationManager.showHome(context);
+  }
 }

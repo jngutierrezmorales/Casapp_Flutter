@@ -26,7 +26,8 @@ Future<void> main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => SplashBloc(_routingProvider.splashRouting()),
+          create: (_) => SplashBloc(
+              _routingProvider.splashRouting(), _serviceProvider.authService()),
         ),
         BlocProvider(
           create: (_) => HomeBloc(
@@ -78,7 +79,7 @@ class _MyAppState extends State<MyApp> {
       darkTheme: ThemeData(
         brightness: Brightness.dark,
       ),
-      initialRoute: RouteType.login.name,
+      initialRoute: RouteType.splash.name,
       onGenerateRoute: (settings) {
         final args = settings.arguments;
         for (RouteType value in RouteType.values) {

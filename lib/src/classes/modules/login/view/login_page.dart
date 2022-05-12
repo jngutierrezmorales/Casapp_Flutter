@@ -151,7 +151,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     );
   }
 
-  void _onLogged() {
+  _onLogged() {
     BlocProvider.of<LoginBloc>(context).add(
       LoginNavigateToHomeEvent(context: context),
     );

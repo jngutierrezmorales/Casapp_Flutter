@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../models/user_model.dart';
 import '../protocols/auth_service_protocol.dart';
 
 class AuthService extends AuthServiceProtocol {
@@ -16,12 +17,14 @@ class AuthService extends AuthServiceProtocol {
   }
 
   @override
-  Future<bool> firebaseCheckUser(String username) async {
-    if (FirebaseAuth.instance.currentUser != null) {
-      return true;
-    } else {
-      return false;
-    }
+  Future<UserModel> firebaseCheckUser() async {
+    final result = FirebaseAuth.instance.currentUser;
+    return UserModel(
+      id: result?.uid,
+      email: result?.email,
+      name: result?.displayName,
+      phoneNumber: result?.phoneNumber,
+    );
   }
 
   @override
