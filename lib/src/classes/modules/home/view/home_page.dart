@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
       onWillPop: () async => false,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Menu'),
+          title: const Text('Casapp'),
           //automaticallyImplyLeading: false,
         ),
         drawer: Drawer(
@@ -130,6 +130,7 @@ class _HomePageState extends State<HomePage> {
           },
         ),
         bottomNavigationBar: SalomonBottomBar(
+          margin: EdgeInsets.all(20),
           currentIndex: _selectedTab,
           onTap: (position) {
             setState(() {

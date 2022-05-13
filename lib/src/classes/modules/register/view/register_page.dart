@@ -68,7 +68,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 height: height * 0.05,
                               ),
                               Image.asset(
-                                'assets/imgs/registro_logo.png',
+                                'assets/imgs/register_logo.png',
                               ),
                               SizedBox(
                                 height: height * 0.05,
@@ -83,7 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   children: <Widget>[
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        minimumSize: Size(100, 40),
+                                        minimumSize: const Size(100, 40),
                                       ),
                                       onPressed: () =>
                                           (state is RegisterInProgress)
@@ -96,7 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ),
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        minimumSize: Size(100, 40),
+                                        minimumSize: const Size(100, 40),
                                       ),
                                       onPressed: () =>
                                           (state is RegisterInitialState)

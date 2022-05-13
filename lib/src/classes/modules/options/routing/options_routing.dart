@@ -14,4 +14,8 @@ class OptionsRouting extends StatelessWidget {
   Widget build(BuildContext context) {
     return OptionsPage(this);
   }
+
+  void navigateToHome(BuildContext context) {
+    _navigationManager.showHome(context);
+  }
 }

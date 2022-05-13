@@ -10,7 +10,7 @@ enum State {
   share,
 }
 
-class Home {
+class HomeModel {
   final String id;
   final String title;
   final State? state;
@@ -20,7 +20,7 @@ class Home {
   final String location;
   final Affordability? affordability;
 
-  const Home({
+  const HomeModel({
     this.id = '',
     this.title = '',
     this.state,

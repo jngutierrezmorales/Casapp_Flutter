@@ -1,7 +1,7 @@
 import 'home_model.dart';
 
 const dummyHomes = [
-  Home(
+  HomeModel(
     id: 'c1',
     title: 'Casa1',
     state: State.sell,
@@ -11,7 +11,7 @@ const dummyHomes = [
     location: 'Madrid',
     affordability: Affordability.affordable,
   ),
-  Home(
+  HomeModel(
     id: 'c2',
     title: 'Casa2',
     state: State.rent,
@@ -21,7 +21,7 @@ const dummyHomes = [
     location: 'Madrid',
     affordability: Affordability.affordable,
   ),
-  Home(
+  HomeModel(
     id: 'c3',
     title: 'Casa3',
     state: State.share,
@@ -31,7 +31,7 @@ const dummyHomes = [
     location: 'Barcelona',
     affordability: Affordability.affordable,
   ),
-  Home(
+  HomeModel(
     id: 'c4',
     title: 'Casa4',
     state: State.sell,
@@ -41,7 +41,7 @@ const dummyHomes = [
     location: 'Malaga',
     affordability: Affordability.pricey,
   ),
-  Home(
+  HomeModel(
     id: 'c5',
     title: 'Casa5',
     state: State.sell,

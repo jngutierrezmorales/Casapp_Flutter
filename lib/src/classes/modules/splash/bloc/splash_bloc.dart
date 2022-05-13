@@ -19,7 +19,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   @override
   Stream<SplashState> mapEventToState(SplashEvent event) async* {
     if (event is SplashCheckUserEvent) {
-      checkUser();
+      checkUser(event.context);
     } else if (event is SplashNavigateToHomeEvent) {
       navigateToHome(event.context);
     } else if (event is SplashNavigateToLoginEvent) {
@@ -27,10 +27,20 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     }
   }
 
-  Stream<SplashState> checkUser() async* {
+  // Stream<SplashState> checkUser(BuildContext context) async* {
+  //   final user = await authServiceProtocol.firebaseCheckUser();
+  //
+  //   //if (user.email != null) yield SplashUserCheckState(user);
+  // }
+
+  void checkUser(BuildContext context) async {
     final user = await authServiceProtocol.firebaseCheckUser();
 
-    if (user.email != null) yield SplashUserCheckState(user);
+    if (user.email != null) {
+      splashRouting.navigateToHome(context);
+    } else {
+      splashRouting.navigateToLogin(context);
+    }
   }
 
   void navigateToLogin(BuildContext context) async {

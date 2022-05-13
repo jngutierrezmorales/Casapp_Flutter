@@ -19,6 +19,7 @@ class AuthService extends AuthServiceProtocol {
   @override
   Future<UserModel> firebaseCheckUser() async {
     final result = FirebaseAuth.instance.currentUser;
+
     return UserModel(
       id: result?.uid,
       email: result?.email,
@@ -60,9 +61,15 @@ class AuthService extends AuthServiceProtocol {
   }
 
   @override
-  Future<void> firebaseUpdateUserProfile(String name, String photo) async {
+  Future<void> firebaseUpdateUserName(String name) async {
     if (FirebaseAuth.instance.currentUser != null) {
       await FirebaseAuth.instance.currentUser?.updateDisplayName(name);
+    }
+  }
+
+  @override
+  Future<void> firebaseUpdateUserPhoto(String photo) async {
+    if (FirebaseAuth.instance.currentUser != null) {
       await FirebaseAuth.instance.currentUser?.updatePhotoURL(photo);
     }
   }

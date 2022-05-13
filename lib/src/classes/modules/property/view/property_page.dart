@@ -13,6 +13,12 @@ class _PropertyPageState extends State<PropertyPage> {
   late PropertyBloc _propertyBloc;
 
   @override
+  void initState() {
+    _propertyBloc = BlocProvider.of<PropertyBloc>(context);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
