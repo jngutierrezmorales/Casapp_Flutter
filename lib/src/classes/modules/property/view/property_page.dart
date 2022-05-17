@@ -13,6 +13,20 @@ class PropertyPage extends StatefulWidget {
 class _PropertyPageState extends State<PropertyPage> {
   //late PropertyBloc _propertyBloc;
   List<HomeModel> listHomeModels = dummyHomes;
+  HomeModel? homeModel;
+
+  String get homeStateForText {
+    switch (homeModel?.homeStateFor) {
+      case HomeStateFor.share:
+        return 'COMPARTIR';
+      case HomeStateFor.rent:
+        return 'ALQUILAR';
+      case HomeStateFor.sell:
+        return 'VENDER';
+      default:
+        return 'ERROR';
+    }
+  }
 
   @override
   void initState() {
@@ -22,7 +36,7 @@ class _PropertyPageState extends State<PropertyPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Container(
       child: ListView.builder(
         itemCount: listHomeModels.length,
         scrollDirection: Axis.vertical,
@@ -49,10 +63,26 @@ class _PropertyPageState extends State<PropertyPage> {
                   topRight: Radius.circular(15),
                 ),
                 child: Image.network(
-                  "https://rapidapi.com/blog/wp-content/uploads/2018/10/architecture-1836070_640.jpg",
+                  homeModel.imageUrl,
                   height: 200,
                   width: double.infinity,
                   fit: BoxFit.cover,
+                ),
+              ),
+              Positioned(
+                top: 10,
+                right: 10,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Colors.blue,
+                    ),
+                  ),
+                  child: const Icon(
+                    Icons.favorite,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               Positioned(
@@ -60,12 +90,18 @@ class _PropertyPageState extends State<PropertyPage> {
                 right: 10,
                 child: Container(
                   width: 100,
-                  color: Colors.red,
+                  color: Colors.amber,
                   padding: const EdgeInsets.symmetric(
                     vertical: 5,
                     horizontal: 20,
                   ),
-                  child: const Text("VENTA"),
+                  child: Text(
+                    homeStateForText,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -76,36 +112,36 @@ class _PropertyPageState extends State<PropertyPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Row(
-                  children: const <Widget>[
-                    Icon(
+                  children: [
+                    const Icon(
                       Icons.room,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 6,
                     ),
-                    Text('Madrid'),
+                    Text(homeModel.location),
                   ],
                 ),
                 Row(
-                  children: const <Widget>[
-                    Icon(
+                  children: [
+                    const Icon(
                       Icons.home,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 6,
                     ),
-                    Text("150m"),
+                    Text(homeModel.size + 'm'),
                   ],
                 ),
                 Row(
-                  children: const <Widget>[
-                    Icon(
+                  children: [
+                    const Icon(
                       Icons.euro,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 6,
                     ),
-                    Text("150.000"),
+                    Text(homeModel.price),
                   ],
                 ),
               ],

@@ -109,24 +109,11 @@ class _HomePageState extends State<HomePage> {
         ),
         body: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
-            return SafeArea(
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        _widgets.elementAt(_selectedTab),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
+            return _widgets.elementAt(_selectedTab);
           },
         ),
         bottomNavigationBar: SalomonBottomBar(
-          margin: EdgeInsets.all(20),
+          margin: const EdgeInsets.all(5),
           currentIndex: _selectedTab,
           onTap: (position) {
             setState(() {
