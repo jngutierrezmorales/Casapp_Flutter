@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:casapp/src/classes/services/protocols/auth_service_protocol.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../../../models/user_model.dart';
 import '../routing/splash_routing.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,10 +19,6 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   Stream<SplashState> mapEventToState(SplashEvent event) async* {
     if (event is SplashCheckUserEvent) {
       checkUser(event.context);
-    } else if (event is SplashNavigateToHomeEvent) {
-      navigateToHome(event.context);
-    } else if (event is SplashNavigateToLoginEvent) {
-      navigateToLogin(event.context);
     }
   }
 
@@ -37,9 +32,9 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     final user = await authServiceProtocol.firebaseCheckUser();
 
     if (user.email != null) {
-      splashRouting.navigateToHome(context);
+      navigateToHome(context);
     } else {
-      splashRouting.navigateToLogin(context);
+      navigateToLogin(context);
     }
   }
 

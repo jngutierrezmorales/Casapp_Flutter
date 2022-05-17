@@ -1,3 +1,4 @@
+import 'package:casapp/src/classes/models/home_model.dart';
 import 'package:casapp/src/classes/modules/property/bloc/property_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,20 +7,32 @@ class PropertyPage extends StatefulWidget {
   static const propertyPage = "propertyPage";
 
   @override
-  State<PropertyPage> createState() => _PropertyPageState();
+  _PropertyPageState createState() => _PropertyPageState();
 }
 
 class _PropertyPageState extends State<PropertyPage> {
-  late PropertyBloc _propertyBloc;
+  //late PropertyBloc _propertyBloc;
+  List<HomeModel> listHomeModels = dummyHomes;
 
   @override
   void initState() {
-    _propertyBloc = BlocProvider.of<PropertyBloc>(context);
+    //_propertyBloc = BlocProvider.of<PropertyBloc>(context);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: ListView.builder(
+        itemCount: listHomeModels.length,
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemBuilder: (context, index) => HomeCard(listHomeModels[index]),
+      ),
+    );
+  }
+
+  HomeCard(HomeModel homeModel) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),

@@ -2,6 +2,7 @@ import 'package:casapp/src/classes/managers/route_manager.dart';
 import 'package:casapp/src/classes/modules/favorites/bloc/favorites_bloc.dart';
 import 'package:casapp/src/classes/modules/home/bloc/home_bloc.dart';
 import 'package:casapp/src/classes/modules/login/bloc/login_bloc.dart';
+import 'package:casapp/src/classes/modules/options/bloc/options_bloc.dart';
 import 'package:casapp/src/classes/modules/property/bloc/property_bloc.dart';
 import 'package:casapp/src/classes/modules/register/bloc/register_bloc.dart';
 import 'package:casapp/src/classes/modules/splash/bloc/splash_bloc.dart';
@@ -46,6 +47,10 @@ Future<void> main() async {
         ),
         BlocProvider(
           create: (_) => FavoritesBloc(_routingProvider.favoritesRouting()),
+        ),
+        BlocProvider(
+          create: (_) => OptionsBloc(_routingProvider.optionsRouting(),
+              _serviceProvider.authService()),
         ),
       ],
       child: ChangeNotifierProvider(

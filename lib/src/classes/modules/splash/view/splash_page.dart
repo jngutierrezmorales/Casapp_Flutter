@@ -25,12 +25,12 @@ class _SplashPageState extends State<SplashPage> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.white,
         body: BlocBuilder<SplashBloc, SplashState>(
           builder: (context, state) {
             if (state is SplashInitialState) {
               Timer(
-                const Duration(seconds: 2),
+                const Duration(seconds: 1),
                 () => _splashBloc.add(SplashCheckUserEvent(context: context)),
               );
             }
@@ -46,7 +46,7 @@ class _SplashPageState extends State<SplashPage> {
                     height: 30,
                   ),
                   const CircularProgressIndicator(
-                    color: Colors.white,
+                    color: Colors.blue,
                   ),
                   const SizedBox(
                     height: 20,

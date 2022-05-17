@@ -85,7 +85,7 @@ class _OptionsPageState extends State<OptionsPage> {
                                     onPressed: () =>
                                         (state is OptionsInitialState)
                                             ? _goToHome
-                                            : _goToHome,
+                                            : null,
                                     child: const Text("Aceptar"),
                                   ),
                                 ],

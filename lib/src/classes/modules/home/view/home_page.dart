@@ -113,15 +113,11 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   Expanded(
-                    child: Container(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            _widgets.elementAt(_selectedTab),
-                          ],
-                        ),
-                      ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        _widgets.elementAt(_selectedTab),
+                      ],
                     ),
                   ),
                 ],
