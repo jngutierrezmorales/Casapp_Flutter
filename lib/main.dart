@@ -81,9 +81,9 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         brightness: Brightness.light,
       ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-      ),
+      // darkTheme: ThemeData(
+      //   brightness: Brightness.dark,
+      // ),
       initialRoute: RouteType.splash.name,
       onGenerateRoute: (settings) {
         final args = settings.arguments;

@@ -1,3 +1,4 @@
+import 'package:casapp/src/classes/models/home_model.dart';
 import 'package:casapp/src/classes/modules/property/view/property_page.dart';
 import 'package:flutter/material.dart';
 
@@ -13,5 +14,9 @@ class PropertyRouting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PropertyPage();
+  }
+
+  void navigateToDetail(BuildContext context) {
+    _navigationManager.showPropertyDetail(context);
   }
 }

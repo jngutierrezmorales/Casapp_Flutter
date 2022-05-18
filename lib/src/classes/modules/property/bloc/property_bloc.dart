@@ -10,4 +10,15 @@ class PropertyBloc extends Bloc<PropertyEvent, PropertyState> {
   final PropertyRouting propertyRouting;
 
   PropertyBloc(this.propertyRouting) : super(PropertyInitialState());
+
+  @override
+  Stream<PropertyState> mapEventToState(PropertyEvent event) async* {
+    if (event is PropertyNavigateToDetailEvent) {
+      navigateToDetail(event);
+    }
+  }
+
+  void navigateToDetail (PropertyNavigateToDetailEvent event) {
+    propertyRouting.navigateToDetail(event.context);
+  }
 }

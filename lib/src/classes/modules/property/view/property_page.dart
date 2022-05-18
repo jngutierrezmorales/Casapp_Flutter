@@ -15,16 +15,20 @@ class _PropertyPageState extends State<PropertyPage> {
   List<HomeModel> listHomeModels = dummyHomes;
   HomeModel? homeModel;
 
-  String get homeStateForText {
-    switch (homeModel?.homeStateFor) {
+  String get homeStateToText {
+    final _model = homeModel;
+    if (_model == null) {
+      return "";
+    }
+    switch (_model.homeStateFor) {
       case HomeStateFor.share:
         return 'COMPARTIR';
       case HomeStateFor.rent:
         return 'ALQUILAR';
       case HomeStateFor.sell:
         return 'VENDER';
-      default:
-        return 'ERROR';
+      case HomeStateFor.undefined:
+        return 'INDEFINIDO';
     }
   }
 
@@ -41,114 +45,132 @@ class _PropertyPageState extends State<PropertyPage> {
         itemCount: listHomeModels.length,
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        itemBuilder: (context, index) => HomeCard(listHomeModels[index]),
+        itemBuilder: (context, index) {
+          homeModel = listHomeModels[index];
+          final _home = homeModel;
+          if (_home == null) {
+            return const Text("INDEFINIDO");
+          }
+          return HomeCard(_home);
+        },
       ),
     );
   }
 
   HomeCard(HomeModel homeModel) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      elevation: 5,
-      margin: const EdgeInsets.all(10),
-      child: Column(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
+    return InkWell(
+      onTap: _toPropertyDetail,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 5,
+        margin: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15),
+                  ),
+                  child: Image.network(
+                    homeModel.imageUrl,
+                    height: 200,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-                child: Image.network(
-                  homeModel.imageUrl,
-                  height: 200,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Positioned(
-                top: 10,
-                right: 10,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.blue,
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        Colors.blue,
+                      ),
                     ),
-                  ),
-                  child: const Icon(
-                    Icons.favorite,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 20,
-                right: 10,
-                child: Container(
-                  width: 100,
-                  color: Colors.amber,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 5,
-                    horizontal: 20,
-                  ),
-                  child: Text(
-                    homeStateForText,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                    child: const Icon(
+                      Icons.favorite,
+                      color: Colors.white,
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.room,
+                Positioned(
+                  bottom: 20,
+                  right: 10,
+                  child: Container(
+                    width: 120,
+                    color: Colors.amber,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 5,
+                      horizontal: 20,
                     ),
-                    const SizedBox(
-                      width: 6,
+                    child: Center(
+                      child: Text(
+                        homeStateToText,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
                     ),
-                    Text(homeModel.location),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.home,
-                    ),
-                    const SizedBox(
-                      width: 6,
-                    ),
-                    Text(homeModel.size + 'm'),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.euro,
-                    ),
-                    const SizedBox(
-                      width: 6,
-                    ),
-                    Text(homeModel.price),
-                  ],
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.room,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(homeModel.location),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.home,
+                      ),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Text(homeModel.size + 'm'),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.euro,
+                      ),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Text(homeModel.price),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  _toPropertyDetail() {
+    BlocProvider.of<PropertyBloc>(context).add(
+        PropertyNavigateToDetailEvent(context: context),
     );
   }
 }

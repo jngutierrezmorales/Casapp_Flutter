@@ -103,10 +103,9 @@ class RouteManager {
             view: _routingProvider.optionsRouting(),
             routeName: arguments.routeType.name,
           );
-        //TODO: change to detailrouting
         case RouteType.detail:
           return _getSlidePageRoute(
-            view: _routingProvider.optionsRouting(),
+            view: _routingProvider.propertyDetailRouting(),
             routeName: arguments.routeType.name,
           );
         case RouteType.logout:

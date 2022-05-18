@@ -2,40 +2,42 @@ enum Affordability {
   affordable,
   pricey,
   luxurious,
+  undefined,
 }
 
 enum HomeStateFor {
   sell,
   rent,
   share,
+  undefined,
 }
 
 class HomeModel {
   final String id;
   final String title;
-  final HomeStateFor? homeStateFor;
+  final HomeStateFor homeStateFor;
   final String imageUrl;
   final String price;
   final String size;
   final String location;
-  final Affordability? affordability;
+  final Affordability affordability;
 
   HomeModel({
     this.id = '',
     this.title = '',
-    this.homeStateFor,
+    this.homeStateFor = HomeStateFor.undefined,
     this.imageUrl = '',
     this.price = '',
     this.size = '',
     this.location = '',
-    this.affordability,
+    this.affordability = Affordability.undefined,
   });
 }
 
 final dummyHomes = [
   HomeModel(
     id: 'c1',
-    title: 'Casa1',
+    title: 'Venta de Casa en plaza de Ortega y Gasset',
     homeStateFor: HomeStateFor.sell,
     imageUrl: 'https://rapidapi.com/blog/wp-content/uploads/2018/10/architecture-1836070_640.jpg',
     price: '199.999,99',

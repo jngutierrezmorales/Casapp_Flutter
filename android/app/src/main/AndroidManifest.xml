@@ -32,5 +32,13 @@
             android:name="flutterEmbedding"
             android:resource="@drawable/launch_background"
             android:value="2" />
+
+       <meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="AIzaSyAhAw_DmSZ8Gl5Qm8qFii1uzwvBAAZZDro"/>
     </application>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!--BACKGROUND Y TAMBIEN OPCION DE ALWAYS-->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 </manifest>
