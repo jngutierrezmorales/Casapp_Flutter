@@ -1,7 +1,6 @@
 import 'package:casapp/src/classes/modules/register/bloc/register_bloc.dart';
 import 'package:casapp/src/classes/modules/register/bloc/register_event.dart';
 import 'package:casapp/src/classes/modules/register/routing/register_routing.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

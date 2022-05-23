@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:casapp/src/classes/services/protocols/auth_service_protocol.dart';
 import 'package:flutter/cupertino.dart';
-
+import '../../../services/protocols/firebase_service_protocol.dart';
 import '../routing/home_routing.dart';
 
 part 'home_event.dart';
@@ -10,9 +9,9 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final HomeRouting homeRouting;
-  final AuthServiceProtocol authServiceProtocol;
+  final FirebaseServiceProtocol firebaseAPIService;
 
-  HomeBloc(this.homeRouting, this.authServiceProtocol) : super(HomeInitialState());
+  HomeBloc(this.homeRouting, this.firebaseAPIService) : super(HomeInitialState());
 
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
@@ -40,7 +39,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   void logout (HomeToLogoutEvent event) async {
-    await authServiceProtocol.firebaseSignOut();
+    await firebaseAPIService.signOut();
 
     homeRouting.logoutToLogin(event.context);
   }

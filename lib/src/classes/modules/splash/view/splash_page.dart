@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:casapp/src/classes/modules/splash/bloc/splash_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,14 +38,14 @@ class _SplashPageState extends State<SplashPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/imgs/app_logo.png',
+                    'assets/imgs/app_logo.jpg',
                     height: 130,
                   ),
                   const SizedBox(
                     height: 30,
                   ),
                   const CircularProgressIndicator(
-                    color: Colors.blue,
+                    color: Colors.black,
                   ),
                   const SizedBox(
                     height: 20,

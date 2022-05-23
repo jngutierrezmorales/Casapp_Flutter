@@ -1,6 +1,6 @@
 import '../../models/user_model.dart';
 
-abstract class FirebaseAuthServiceProtocol {
+abstract class FirebaseServiceProtocol {
   Future<void> userIsLogged(String username);
   Future<UserModel> checkUser();
   Future<bool> signIn(String username, String password);

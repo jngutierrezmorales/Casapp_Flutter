@@ -1,19 +1,11 @@
 import 'package:casapp/src/classes/managers/route_manager.dart';
-import 'package:casapp/src/classes/modules/favorites/bloc/favorites_bloc.dart';
-import 'package:casapp/src/classes/modules/home/bloc/home_bloc.dart';
-import 'package:casapp/src/classes/modules/login/bloc/login_bloc.dart';
-import 'package:casapp/src/classes/modules/options/bloc/options_bloc.dart';
-import 'package:casapp/src/classes/modules/property/bloc/property_bloc.dart';
-import 'package:casapp/src/classes/modules/register/bloc/register_bloc.dart';
 import 'package:casapp/src/classes/modules/splash/bloc/splash_bloc.dart';
 import 'package:casapp/src/classes/providers/routing/routing_provider.dart';
-import 'package:casapp/src/classes/services/service_provider.dart';
+import 'package:casapp/src/classes/providers/service/service_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-
-// async -> Future, async* -> Stream
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,31 +18,10 @@ Future<void> main() async {
   runApp(
     MultiBlocProvider(
       providers: [
+        //TODO: initialize common blocproviders in main and separate the isolated ones in their routing
         BlocProvider(
           create: (_) => SplashBloc(
-              _routingProvider.splashRouting(), _serviceProvider.authService()),
-        ),
-        BlocProvider(
-          create: (_) => HomeBloc(
-              _routingProvider.homeRouting(), _serviceProvider.authService()),
-        ),
-        BlocProvider(
-          create: (_) => LoginBloc(
-              _routingProvider.loginRouting(), _serviceProvider.authService()),
-        ),
-        BlocProvider(
-          create: (_) => RegisterBloc(_routingProvider.registerRouting(),
-              _serviceProvider.authService()),
-        ),
-        BlocProvider(
-          create: (_) => PropertyBloc(_routingProvider.propertyRouting()),
-        ),
-        BlocProvider(
-          create: (_) => FavoritesBloc(_routingProvider.favoritesRouting()),
-        ),
-        BlocProvider(
-          create: (_) => OptionsBloc(_routingProvider.optionsRouting(),
-              _serviceProvider.authService()),
+              _routingProvider.splashRouting(), _serviceProvider.firebaseAPIService()),
         ),
       ],
       child: ChangeNotifierProvider(
@@ -79,6 +50,9 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Casapp',
       theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          color: Colors.black,
+        ),
         brightness: Brightness.light,
       ),
       // darkTheme: ThemeData(

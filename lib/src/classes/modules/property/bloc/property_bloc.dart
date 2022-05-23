@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:casapp/src/classes/services/protocols/homes_service_protocol.dart';
 import 'package:flutter/cupertino.dart';
-
+import '../../../models/home_model.dart';
 import '../routing/property_routing.dart';
 
 part 'property_event.dart';
@@ -8,17 +9,25 @@ part 'property_state.dart';
 
 class PropertyBloc extends Bloc<PropertyEvent, PropertyState> {
   final PropertyRouting propertyRouting;
+  final HomesServiceProtocol homesAPIService;
 
-  PropertyBloc(this.propertyRouting) : super(PropertyInitialState());
+  PropertyBloc(this.propertyRouting, this.homesAPIService) : super(PropertyInitialState());
 
   @override
   Stream<PropertyState> mapEventToState(PropertyEvent event) async* {
     if (event is PropertyNavigateToDetailEvent) {
       navigateToDetail(event);
+    } else if (event is GetDummyDataEvent) {
+      getDummyData();
     }
   }
 
   void navigateToDetail (PropertyNavigateToDetailEvent event) {
-    propertyRouting.navigateToDetail(event.context);
+    propertyRouting.navigateToDetail(event.context, event.homeModel);
+  }
+
+  Future<List> getDummyData() async {
+    final result = await homesAPIService.getHomes();
+    return result;
   }
 }

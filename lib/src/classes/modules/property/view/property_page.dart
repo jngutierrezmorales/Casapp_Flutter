@@ -11,30 +11,13 @@ class PropertyPage extends StatefulWidget {
 }
 
 class _PropertyPageState extends State<PropertyPage> {
-  //late PropertyBloc _propertyBloc;
-  List<HomeModel> listHomeModels = dummyHomes;
-  HomeModel? homeModel;
-
-  String get homeStateToText {
-    final _model = homeModel;
-    if (_model == null) {
-      return "";
-    }
-    switch (_model.homeStateFor) {
-      case HomeStateFor.share:
-        return 'COMPARTIR';
-      case HomeStateFor.rent:
-        return 'ALQUILAR';
-      case HomeStateFor.sell:
-        return 'VENDER';
-      case HomeStateFor.undefined:
-        return 'INDEFINIDO';
-    }
-  }
+  late PropertyBloc _propertyBloc;
+  HomeModel homeModel = HomeModel();
+  List<HomeModel> listHomes = dummyHomes;
 
   @override
   void initState() {
-    //_propertyBloc = BlocProvider.of<PropertyBloc>(context);
+    _propertyBloc = BlocProvider.of<PropertyBloc>(context);
     super.initState();
   }
 
@@ -42,24 +25,19 @@ class _PropertyPageState extends State<PropertyPage> {
   Widget build(BuildContext context) {
     return Container(
       child: ListView.builder(
-        itemCount: listHomeModels.length,
+        itemCount: listHomes.length,
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          homeModel = listHomeModels[index];
-          final _home = homeModel;
-          if (_home == null) {
-            return const Text("INDEFINIDO");
-          }
-          return HomeCard(_home);
+          return HomeCard(listHomes[index]);
         },
       ),
     );
   }
 
   HomeCard(HomeModel homeModel) {
-    return InkWell(
-      onTap: _toPropertyDetail,
+    return GestureDetector(
+      onTap: () => _toPropertyDetail(homeModel),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -83,22 +61,6 @@ class _PropertyPageState extends State<PropertyPage> {
                   ),
                 ),
                 Positioned(
-                  top: 10,
-                  right: 10,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        Colors.blue,
-                      ),
-                    ),
-                    child: const Icon(
-                      Icons.favorite,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Positioned(
                   bottom: 20,
                   right: 10,
                   child: Container(
@@ -110,7 +72,7 @@ class _PropertyPageState extends State<PropertyPage> {
                     ),
                     child: Center(
                       child: Text(
-                        homeStateToText,
+                        homeModel.homeStateFor.name,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
@@ -168,9 +130,9 @@ class _PropertyPageState extends State<PropertyPage> {
     );
   }
 
-  _toPropertyDetail() {
+  _toPropertyDetail(HomeModel homeModel) {
     BlocProvider.of<PropertyBloc>(context).add(
-        PropertyNavigateToDetailEvent(context: context),
+      PropertyNavigateToDetailEvent(context: context, homeModel: homeModel),
     );
   }
 }

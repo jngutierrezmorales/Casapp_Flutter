@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../routing/search_routing.dart';
 
 class SearchPage extends StatefulWidget {

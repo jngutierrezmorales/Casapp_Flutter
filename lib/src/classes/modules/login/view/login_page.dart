@@ -19,13 +19,11 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
 
   _LoginPageState(this.loginRouting);
 
-  late LoginBloc _loginBloc;
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
   void initState() {
-    _loginBloc = BlocProvider.of<LoginBloc>(context);
     _usernameController.text = "test@test.com";
     _passwordController.text = "test123";
     super.initState();
@@ -82,9 +80,10 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                                       style: ElevatedButton.styleFrom(
                                         minimumSize: Size(100, 40),
                                       ),
-                                      onPressed: () => (state is LoginInProgress)
-                                          ? null
-                                          : _postLogin(),
+                                      onPressed: () =>
+                                          (state is LoginInProgress)
+                                              ? null
+                                              : _postLogin(),
                                       child: const Text("Acceder"),
                                     ),
                                     const SizedBox(
@@ -94,9 +93,10 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                                       style: ElevatedButton.styleFrom(
                                         minimumSize: Size(100, 40),
                                       ),
-                                      onPressed: () => (state is LoginInitialState)
-                                          ? _toRegister()
-                                          : null,
+                                      onPressed: () =>
+                                          (state is LoginInitialState)
+                                              ? _toRegister()
+                                              : null,
                                       child: const Text("Crear usuario"),
                                     ),
                                   ],

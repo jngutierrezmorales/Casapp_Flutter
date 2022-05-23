@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../models/user_model.dart';
-import '../protocols/firebase_auth_service_protocol.dart';
+import '../protocols/firebase_service_protocol.dart';
 
-class FirebaseAuthService implements FirebaseAuthServiceProtocol {
+class FirebaseAPIService implements FirebaseServiceProtocol {
   @override
   Future<void> userIsLogged(String username) async {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {

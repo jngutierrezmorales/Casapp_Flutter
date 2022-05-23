@@ -1,7 +1,5 @@
 import 'package:casapp/src/classes/modules/filters/routing/filters_routing.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../bloc/filters_bloc.dart';
 
 class FiltersPage extends StatefulWidget {
@@ -38,7 +36,11 @@ class _FiltersPageState extends State<FiltersPage> {
       subtitle: Text(
         description,
       ),
-      onChanged: null, //TODO:
+      onChanged: (updateValue) {
+        setState(() {
+          currentValue = updateValue;
+        });
+      },
     );
   }
 
@@ -46,7 +48,7 @@ class _FiltersPageState extends State<FiltersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Volver'),
+        title: const Text('Volver'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.save),
@@ -57,7 +59,7 @@ class _FiltersPageState extends State<FiltersPage> {
       body: Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.all(30),
+            padding: const EdgeInsets.all(30),
             child: const Text(
               'Personaliza como se muestran los resultados.',
             ),

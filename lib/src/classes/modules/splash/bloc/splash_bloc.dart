@@ -1,18 +1,18 @@
 import 'package:bloc/bloc.dart';
-import 'package:casapp/src/classes/services/protocols/auth_service_protocol.dart';
+import 'package:casapp/src/classes/services/protocols/firebase_service_protocol.dart';
 import '../../../models/user_model.dart';
+import '../../../services/api/firebase_api_service.dart';
 import '../routing/splash_routing.dart';
 import 'package:flutter/cupertino.dart';
 
 part 'splash_event.dart';
-
 part 'splash_state.dart';
 
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final SplashRouting splashRouting;
-  final AuthServiceProtocol authServiceProtocol;
+  final FirebaseServiceProtocol firebaseAPIService;
 
-  SplashBloc(this.splashRouting, this.authServiceProtocol)
+  SplashBloc(this.splashRouting, this.firebaseAPIService)
       : super(SplashInitialState());
 
   @override
@@ -29,7 +29,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   // }
 
   void checkUser(BuildContext context) async {
-    final user = await authServiceProtocol.firebaseCheckUser();
+    final user = await firebaseAPIService.checkUser();
 
     if (user.email != null) {
       navigateToHome(context);

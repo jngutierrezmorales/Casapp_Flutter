@@ -6,12 +6,11 @@ import 'package:casapp/src/classes/modules/property_detail/routing/property_deta
 import 'package:casapp/src/classes/modules/register/routing/register_routing.dart';
 import 'package:casapp/src/classes/modules/search/routing/search_routing.dart';
 import 'package:casapp/src/classes/modules/splash/routing/splash_routing.dart';
-import 'package:casapp/src/classes/services/service_provider.dart';
-
 import '../../models/home_model.dart';
 import '../../modules/filters/routing/filters_routing.dart';
 import '../../modules/home/routing/home_routing.dart';
 import '../../modules/login/routing/login_routing.dart';
+import '../service/service_provider.dart';
 
 class RoutingProvider {
   late final NavigationManager _navigationManager;
@@ -42,8 +41,8 @@ class RoutingProvider {
     return PropertyRouting(_navigationManager);
   }
 
-  PropertyDetailRouting propertyDetailRouting() {
-    return PropertyDetailRouting(_navigationManager);
+  PropertyDetailRouting propertyDetailRouting(HomeModel homeModel) {
+    return PropertyDetailRouting(_navigationManager, homeModel);
   }
 
   FavoritesRouting favoritesRouting() {

@@ -1,16 +1,15 @@
 import 'package:casapp/src/classes/modules/register/bloc/register_event.dart';
 import 'package:casapp/src/classes/modules/register/bloc/register_state.dart';
-import 'package:casapp/src/classes/services/protocols/auth_service_protocol.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import '../../../services/protocols/firebase_service_protocol.dart';
 import '../routing/register_routing.dart';
 
 class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final RegisterRouting registerRouting;
-  final AuthServiceProtocol authServiceProtocol;
+  final FirebaseServiceProtocol firebaseAPIService;
 
-  RegisterBloc(this.registerRouting, this.authServiceProtocol)
+  RegisterBloc(this.registerRouting, this.firebaseAPIService)
       : super(RegisterInitialState());
 
   @override
@@ -39,7 +38,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   void registerWithEmail(
       BuildContext context, String username, String password) async {
     final result =
-        await authServiceProtocol.firebaseCreateAccount(username, password);
+        await firebaseAPIService.signUp(username, password);
 
     if (result) {
       registerRouting.navigateToHome(context);

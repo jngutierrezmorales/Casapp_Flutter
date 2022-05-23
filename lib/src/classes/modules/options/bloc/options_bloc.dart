@@ -1,16 +1,15 @@
 import 'package:casapp/src/classes/modules/options/routing/options_routing.dart';
-import 'package:casapp/src/classes/services/protocols/auth_service_protocol.dart';
+import 'package:casapp/src/classes/services/protocols/firebase_service_protocol.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'options_event.dart';
 import 'options_state.dart';
 
 class OptionsBloc extends Bloc<OptionsEvent, OptionsState> {
   final OptionsRouting optionsRouting;
-  final AuthServiceProtocol authServiceProtocol;
+  final FirebaseServiceProtocol firebaseAPIService;
 
-  OptionsBloc(this.optionsRouting, this.authServiceProtocol) : super(OptionsInitialState());
+  OptionsBloc(this.optionsRouting, this.firebaseAPIService) : super(OptionsInitialState());
 
   @override
   Stream<OptionsState> mapEventToState(OptionsEvent event) async* {
@@ -26,6 +25,6 @@ class OptionsBloc extends Bloc<OptionsEvent, OptionsState> {
   }
 
   void userUpdateName(BuildContext context, String username) async {
-    await authServiceProtocol.firebaseUpdateUserName(username);
+    await firebaseAPIService.updateUserName(username);
   }
 }

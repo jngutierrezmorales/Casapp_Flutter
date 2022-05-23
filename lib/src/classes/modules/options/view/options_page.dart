@@ -1,5 +1,4 @@
 import 'package:casapp/src/classes/modules/options/routing/options_routing.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/options_bloc.dart';
@@ -36,8 +35,8 @@ class _OptionsPageState extends State<OptionsPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Opciones'),
-        automaticallyImplyLeading: false,
+        title: const Text('Volver'),
+        automaticallyImplyLeading: true,
       ),
       body: BlocBuilder<OptionsBloc, OptionsState>(
         builder: (context, state) {
@@ -81,6 +80,7 @@ class _OptionsPageState extends State<OptionsPage> {
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       minimumSize: const Size(100, 40),
+                                      primary: Colors.black,
                                     ),
                                     onPressed: () =>
                                         (state is OptionsInitialState)

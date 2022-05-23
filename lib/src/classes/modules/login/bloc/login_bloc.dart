@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:casapp/src/classes/modules/login/routing/login_routing.dart';
 import 'package:flutter/cupertino.dart';
-
-import '../../../services/protocols/auth_service_protocol.dart';
+import '../../../services/protocols/firebase_service_protocol.dart';
 
 part 'login_event.dart';
 
@@ -10,9 +9,10 @@ part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginRouting loginRouting;
-  final AuthServiceProtocol authServiceProtocol;
+  final FirebaseServiceProtocol firebaseAPIService;
 
-  LoginBloc(this.loginRouting, this.authServiceProtocol) : super(LoginInitialState());
+  LoginBloc(this.loginRouting, this.firebaseAPIService)
+      : super(LoginInitialState());
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
@@ -25,24 +25,24 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 
-  void navigateToHome (LoginNavigateToHomeEvent event) {
+  void navigateToHome(LoginNavigateToHomeEvent event) {
     loginRouting.navigateToHome(event.context);
   }
 
   // user logged in
-  void navigateToAuth (LoginAuthenticationEvent event) {
+  void navigateToAuth(LoginAuthenticationEvent event) {
     loginRouting.navigateToHome(event.context);
   }
 
-  void navigateToRegister (LoginNavigateToRegisterEvent event) {
+  void navigateToRegister(LoginNavigateToRegisterEvent event) {
     loginRouting.navigateToRegister(event.context);
   }
 
-  void loginWithEmail (
+  void loginWithEmail(
       BuildContext context, String username, String password) async {
-    final result = await authServiceProtocol.firebaseSignIn(username, password);
+    final result = await firebaseAPIService.signIn(username, password);
 
-    if (!result){
+    if (!result) {
       return;
     }
 

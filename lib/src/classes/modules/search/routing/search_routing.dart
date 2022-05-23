@@ -1,6 +1,5 @@
 import 'package:casapp/src/classes/managers/navigation_manager.dart';
 import 'package:flutter/cupertino.dart';
-
 import '../view/search_page.dart';
 
 class SearchRouting extends StatelessWidget {

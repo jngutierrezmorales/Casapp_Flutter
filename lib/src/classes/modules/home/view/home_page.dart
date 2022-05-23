@@ -49,19 +49,25 @@ class _HomePageState extends State<HomePage> {
               Container(
                 height: 180,
                 width: double.infinity,
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.only(top: 50, bottom: 5),
                 alignment: Alignment.centerLeft,
-                color: Colors.blue,
+                color: Colors.black,
                 child: Align(
                   alignment: Alignment.center,
-                  child: Image.asset('assets/imgs/drawer_logo.png'),
+                  child: Image.asset('assets/imgs/drawer_logo.jpg'),
                 ),
               ),
               const SizedBox(
                 height: 20,
               ),
               ListTile(
-                title: const Text("Buscar"),
+                title: const Text(
+                  "Buscar",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
                 leading: IconButton(
                   icon: const Icon(Icons.search),
                   onPressed: () {},
@@ -72,7 +78,13 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey,
               ),
               ListTile(
-                title: const Text("Filtros"),
+                title: const Text(
+                  "Filtros",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
                 leading: IconButton(
                   icon: const Icon(Icons.filter_alt),
                   onPressed: () {},
@@ -83,7 +95,13 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey,
               ),
               ListTile(
-                title: const Text("Opciones"),
+                title: const Text(
+                  "Opciones",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
                 leading: IconButton(
                   icon: const Icon(Icons.menu),
                   onPressed: () {},
@@ -94,7 +112,13 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey,
               ),
               ListTile(
-                title: const Text("Salir"),
+                title: const Text(
+                  "Salir",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
                 leading: IconButton(
                   icon: const Icon(Icons.logout),
                   onPressed: () {},
@@ -104,6 +128,12 @@ class _HomePageState extends State<HomePage> {
               const Divider(
                 color: Colors.grey,
               ),
+              Container(
+                margin: const EdgeInsets.only(top: 10),
+                child: const Center(
+                  child: Text("Casapp 1.0"),
+                ),
+              ),
             ],
           ),
         ),
@@ -112,26 +142,29 @@ class _HomePageState extends State<HomePage> {
             return _widgets.elementAt(_selectedTab);
           },
         ),
-        bottomNavigationBar: SalomonBottomBar(
+        bottomNavigationBar: Container(
           margin: const EdgeInsets.all(5),
-          currentIndex: _selectedTab,
-          onTap: (position) {
-            setState(() {
-              _selectedTab = position;
-            });
-          },
-          items: [
-            SalomonBottomBarItem(
-              icon: Icon(Icons.home),
-              title: Text("Inicio"),
-              selectedColor: Colors.black,
-            ),
-            SalomonBottomBarItem(
-              icon: Icon(Icons.favorite),
-              title: Text("Favoritos"),
-              selectedColor: Colors.black,
-            ),
-          ],
+          child: SalomonBottomBar(
+            margin: const EdgeInsets.all(0),
+            currentIndex: _selectedTab,
+            onTap: (position) {
+              setState(() {
+                _selectedTab = position;
+              });
+            },
+            items: [
+              SalomonBottomBarItem(
+                icon: Icon(Icons.home),
+                title: Text("Inicio"),
+                selectedColor: Colors.black,
+              ),
+              SalomonBottomBarItem(
+                icon: Icon(Icons.favorite),
+                title: Text("Favoritos"),
+                selectedColor: Colors.black,
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,7 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-
-import '../../../services/protocols/auth_service_protocol.dart';
 import '../routing/favorites_routing.dart';
 
 part 'favorites_state.dart';
