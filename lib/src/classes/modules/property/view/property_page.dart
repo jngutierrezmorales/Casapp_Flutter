@@ -13,26 +13,30 @@ class PropertyPage extends StatefulWidget {
 class _PropertyPageState extends State<PropertyPage> {
   late PropertyBloc _propertyBloc;
   HomeModel homeModel = HomeModel();
-  List<HomeModel> listHomes = dummyHomes;
 
   @override
   void initState() {
     _propertyBloc = BlocProvider.of<PropertyBloc>(context);
+    _propertyBloc.add(GetListHomesEvent(context: context));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-        itemCount: listHomes.length,
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return HomeCard(listHomes[index]);
-        },
-      ),
-    );
+    return BlocBuilder<PropertyBloc, PropertyState>(builder: (context, state) {
+      if (state is PropertyInitialState) {
+        return ListView.builder(
+          itemCount: state.listHomes.length,
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return HomeCard(state.listHomes[index]);
+          },
+        );
+      } else {
+        return const CircularProgressIndicator();
+      }
+    });
   }
 
   HomeCard(HomeModel homeModel) {

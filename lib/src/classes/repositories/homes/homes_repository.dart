@@ -1,3 +1,4 @@
+import '../../models/home_model.dart';
 import '../../services/protocols/homes_service_protocol.dart';
 
 class HomesRepository {
@@ -5,8 +6,8 @@ class HomesRepository {
 
   HomesRepository(HomesServiceProtocol homesService) : _homesService = homesService;
 
-  Future<List> getHomes() async {
-    final getData = await _homesService.getHomes();
+  List<HomeModel> getHomes() {
+    final getData = _homesService.getHomes();
     return getData;
   }
 }

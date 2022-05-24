@@ -4,10 +4,10 @@ class PropertyDetailEvent {
   const PropertyDetailEvent();
 }
 
-class GetHomesDataEvent extends PropertyDetailEvent {
+class GetHomeDataEvent extends PropertyDetailEvent {
   final BuildContext context;
 
-  GetHomesDataEvent({
+  GetHomeDataEvent({
     required this.context,
   });
 }

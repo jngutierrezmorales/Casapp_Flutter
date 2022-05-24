@@ -2,8 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../models/home_model.dart';
 import '../bloc/property_detail_bloc.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class PropertyDetailPage extends StatefulWidget {
   static const detailPage = "detailPage";
@@ -22,6 +24,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   late double longitude = -3.5863844;
   final Completer<GoogleMapController> _controller = Completer();
   final Set<Marker> _markers = <Marker>{};
+  bool isFavorite = false;
 
   CameraPosition _initialPosition(double latitude, double longitude) {
     return CameraPosition(
@@ -32,13 +35,6 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
 
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
-  }
-
-  @override
-  void initState() {
-    _propertyDetailBloc = BlocProvider.of<PropertyDetailBloc>(context);
-    //_setMarker(LatLng(latitude, longitude));
-    super.initState();
   }
 
   void _setMarker(double latitude, double longitude) {
@@ -52,6 +48,39 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     });
   }
 
+  _phoneCall() async {
+    var url = 'tel:' + widget.homeModel.phone;
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    }
+  }
+
+  final Email email = Email(
+    body:
+        'Hola, me interesa esta casa y me gustaría hacer una visita. Un saludo.',
+    subject: 'Casapp',
+    recipients: ['test@casapp.com'],
+    isHTML: false,
+  );
+
+  _sendEmail() async {
+    await FlutterEmailSender.send(email);
+  }
+
+  Icon toogleFavorite() {
+    return const Icon(
+      Icons.favorite,
+      color: Colors.white,
+    );
+  }
+
+  @override
+  void initState() {
+    _propertyDetailBloc = BlocProvider.of<PropertyDetailBloc>(context);
+    _propertyDetailBloc.add(GetHomeDataEvent(context: context));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +90,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
       body: Column(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.6,
+            height: MediaQuery.of(context).size.height * 0.57,
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -81,15 +110,20 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                       Positioned(
                         top: 10,
                         right: 10,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                              Colors.black,
-                            ),
-                          ),
-                          child: const Icon(
-                            Icons.favorite,
+                        child: FloatingActionButton(
+                          mini: true,
+                          backgroundColor: Colors.black,
+                          onPressed: () {
+                            setState(() {
+                              if (isFavorite) {
+                                isFavorite = false;
+                              } else {
+                                isFavorite = true;
+                              }
+                            });
+                          },
+                          child: Icon(
+                            isFavorite ? Icons.favorite : Icons.favorite_border,
                             color: Colors.white,
                           ),
                         ),
@@ -98,65 +132,37 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                   ),
                   Container(
                     margin: const EdgeInsets.only(
-                        top: 20, right: 20, left: 20, bottom: 10),
+                        top: 15, right: 20, left: 20, bottom: 30),
                     child: Text(
                       widget.homeModel.title,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 25,
                       ),
                     ),
                   ),
                   Container(
                     alignment: Alignment.topLeft,
-                    margin: const EdgeInsets.only(top: 20, left: 20),
+                    margin: const EdgeInsets.only(left: 20, bottom: 5),
                     child: Row(
                       children: [
                         const Icon(
-                          Icons.home,
+                          Icons.weekend,
                           color: Colors.black,
                         ),
                         const SizedBox(
                           width: 10,
                         ),
                         Text(
-                          widget.homeModel.size + ' metros',
+                          widget.homeModel.homeStateFor.name,
                           style: const TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    margin: const EdgeInsets.all(20),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.location_on,
-                          color: Colors.black,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          widget.homeModel.location,
-                          style: const TextStyle(
+                            fontWeight: FontWeight.normal,
                             fontSize: 15,
                           ),
                         ),
                         const SizedBox(
-                          width: 20,
+                          width: 25,
                         ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    margin: const EdgeInsets.only(left: 20, bottom: 20),
-                    child: Row(
-                      children: [
                         const Icon(
                           Icons.euro,
                           color: Colors.black,
@@ -167,28 +173,71 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                         Text(
                           widget.homeModel.price,
                           style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 30,
-                        ),
-                        const Icon(
-                          Icons.phone,
-                          color: Colors.black,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          widget.homeModel.phone,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.normal,
                             fontSize: 15,
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.topLeft,
+                    margin:
+                        const EdgeInsets.only(top: 10, left: 20, bottom: 30),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.home,
+                          color: Colors.black,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          widget.homeModel.size + ' metros',
+                          style: const TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 25,
+                        ),
+                        const Icon(
+                          Icons.location_on,
+                          color: Colors.black,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          widget.homeModel.location,
+                          style: const TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin:
+                        const EdgeInsets.only(right: 19, left: 19, bottom: 20),
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.black,
+                        minimumSize: const Size.fromHeight(50),
+                      ),
+                      onPressed: _phoneCall,
+                      icon: const Icon(
+                        Icons.phone,
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        widget.homeModel.phone,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                        ),
+                      ),
                     ),
                   ),
                   Container(
@@ -207,6 +256,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                         top: 15, left: 20, right: 20, bottom: 10),
                     child: Text(
                       widget.homeModel.description,
+                      textAlign: TextAlign.justify,
                       style: const TextStyle(
                         fontSize: 15,
                       ),
@@ -241,7 +291,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                   ),
                   Container(
                     margin:
-                        const EdgeInsets.only(right: 19, left: 19, bottom: 30),
+                        const EdgeInsets.only(right: 19, left: 19, bottom: 55),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Colors.black,
@@ -251,12 +301,12 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                         'Enviar mensaje',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 15,
+                          fontSize: 17,
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: _sendEmail,
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -284,6 +334,12 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
           ),
         ],
       ),
+    );
+  }
+
+  _getHomes() {
+    BlocProvider.of<PropertyDetailBloc>(context).add(
+      GetHomeDataEvent(context: context),
     );
   }
 }

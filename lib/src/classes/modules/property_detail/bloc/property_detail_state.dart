@@ -1,8 +1,10 @@
 part of 'property_detail_bloc.dart';
 
-@immutable
-abstract class PropertyDetailState {
+class PropertyDetailState {
   const PropertyDetailState();
 }
 
-class PropertyDetailInitialState extends PropertyDetailState {}
+class PropertyDetailInitialState extends PropertyDetailState {
+  List<HomeModel> listHomes;
+  PropertyDetailInitialState(this.listHomes);
+}

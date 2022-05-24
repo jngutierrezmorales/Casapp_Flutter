@@ -11,14 +11,14 @@ class PropertyBloc extends Bloc<PropertyEvent, PropertyState> {
   final PropertyRouting propertyRouting;
   final HomesServiceProtocol homesAPIService;
 
-  PropertyBloc(this.propertyRouting, this.homesAPIService) : super(PropertyInitialState());
+  PropertyBloc(this.propertyRouting, this.homesAPIService) : super(const PropertyState());
 
   @override
   Stream<PropertyState> mapEventToState(PropertyEvent event) async* {
     if (event is PropertyNavigateToDetailEvent) {
       navigateToDetail(event);
-    } else if (event is GetDummyDataEvent) {
-      getDummyData();
+    } else if (event is GetListHomesEvent) {
+      yield* getListHomes();
     }
   }
 
@@ -26,8 +26,8 @@ class PropertyBloc extends Bloc<PropertyEvent, PropertyState> {
     propertyRouting.navigateToDetail(event.context, event.homeModel);
   }
 
-  Future<List> getDummyData() async {
-    final result = await homesAPIService.getHomes();
-    return result;
+  Stream<PropertyState> getListHomes() async* {
+    final result = homesAPIService.getHomes();
+    yield PropertyInitialState(result);
   }
 }

@@ -14,10 +14,10 @@ class PropertyNavigateToDetailEvent extends PropertyEvent {
   });
 }
 
-class GetDummyDataEvent extends PropertyEvent {
+class GetListHomesEvent extends PropertyEvent {
   final BuildContext context;
 
-  GetDummyDataEvent({
+  GetListHomesEvent({
     required this.context,
   });
 }

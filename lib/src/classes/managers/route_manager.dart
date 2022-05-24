@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../models/home_model.dart';
 import '../providers/routing/routing_provider.dart';
 
 // constructor de rutas de pantalla y su animacion
@@ -105,7 +106,7 @@ class RouteManager {
           );
         case RouteType.detail:
           return _getSlidePageRoute(
-            view: _routingProvider.propertyDetailRouting(),
+            view: _routingProvider.propertyDetailRouting(arguments.parameters as HomeModel),
             routeName: arguments.routeType.name,
           );
         case RouteType.logout:

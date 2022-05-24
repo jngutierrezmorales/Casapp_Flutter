@@ -9,19 +9,19 @@ part 'property_detail_state.dart';
 
 class PropertyDetailBloc extends Bloc<PropertyDetailEvent, PropertyDetailState> {
   final PropertyDetailRouting propertyDetailRouting;
-  final HomesServiceProtocol homesService;
+  final HomesServiceProtocol homesAPIService;
 
-  PropertyDetailBloc(this.propertyDetailRouting, this.homesService): super(PropertyDetailInitialState());
+  PropertyDetailBloc(this.propertyDetailRouting, this.homesAPIService): super(const PropertyDetailState());
 
   @override
   Stream<PropertyDetailState> mapEventToState(PropertyDetailEvent event) async* {
-    if (event is GetHomesDataEvent) {
-      getHomesData();
+    if (event is GetHomeDataEvent) {
+      yield* getHomeData();
     }
   }
 
-  Future<List<HomeModel>> getHomesData() async {
-    final result = await homesService.getHomes();
-    return result;
+  Stream<PropertyDetailState> getHomeData() async* {
+    final result = homesAPIService.getHomes();
+    yield PropertyDetailInitialState(result);
   }
 }

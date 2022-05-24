@@ -1,8 +1,10 @@
 part of 'favorites_bloc.dart';
 
-@immutable
-abstract class FavoritesState {
+class FavoritesState {
   const FavoritesState();
 }
 
-class FavoritesInitialState extends FavoritesState {}
+class FavoritesInitialState extends FavoritesState {
+  List<HomeModel> listHomes;
+  FavoritesInitialState(this.listHomes);
+}
