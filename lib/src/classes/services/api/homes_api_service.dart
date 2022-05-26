@@ -19,6 +19,7 @@ class HomesAPIService implements HomesServiceProtocol {
         longitude: -5.675506,
         phone: '600 999 888',
         affordability: Affordability.affordable,
+        isFavorite: false,
       ),
       HomeModel(
         id: 'c2',
@@ -34,6 +35,7 @@ class HomesAPIService implements HomesServiceProtocol {
         longitude: -5.686588,
         phone: '655 900 122',
         affordability: Affordability.affordable,
+        isFavorite: false,
       ),
       HomeModel(
         id: 'c3',
@@ -49,6 +51,7 @@ class HomesAPIService implements HomesServiceProtocol {
         longitude: -5.6601851,
         phone: '644 765 321',
         affordability: Affordability.affordable,
+        isFavorite: false,
       ),
       HomeModel(
         id: 'c4',
@@ -64,6 +67,7 @@ class HomesAPIService implements HomesServiceProtocol {
         longitude: -5.6573738,
         phone: '621 987 235',
         affordability: Affordability.pricey,
+        isFavorite: false,
       ),
       HomeModel(
         id: 'c5',
@@ -79,6 +83,7 @@ class HomesAPIService implements HomesServiceProtocol {
         longitude: -3.7111549,
         phone: '677 577 333',
         affordability: Affordability.luxurious,
+        isFavorite: false,
       ),
     ];
   }

@@ -7,8 +7,10 @@ import '../../../models/home_model.dart';
 class FavoritesPage extends StatefulWidget {
   static const favoritesPage = "favoritesPage";
 
+  FavoritesPage();
+
   @override
-  _FavoritesPageState createState() => _FavoritesPageState();
+  State<FavoritesPage> createState() => _FavoritesPageState();
 }
 
 class _FavoritesPageState extends State<FavoritesPage> {

@@ -17,11 +17,17 @@ class PropertyDetailBloc extends Bloc<PropertyDetailEvent, PropertyDetailState> 
   Stream<PropertyDetailState> mapEventToState(PropertyDetailEvent event) async* {
     if (event is GetHomeDataEvent) {
       yield* getHomeData();
+    } else if (event is FavoriteHomesListEvent) {
+      addHomeToFavoriteList(event);
     }
   }
 
   Stream<PropertyDetailState> getHomeData() async* {
     final result = homesAPIService.getHomes();
     yield PropertyDetailInitialState(result);
+  }
+
+  void addHomeToFavoriteList (FavoriteHomesListEvent event) {
+    propertyDetailRouting.navigateToFavorites(event.context, event.homeModel);
   }
 }

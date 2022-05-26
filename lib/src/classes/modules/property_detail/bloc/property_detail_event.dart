@@ -11,3 +11,13 @@ class GetHomeDataEvent extends PropertyDetailEvent {
     required this.context,
   });
 }
+
+class FavoriteHomesListEvent extends PropertyDetailEvent {
+  final BuildContext context;
+  HomeModel homeModel;
+
+  FavoriteHomesListEvent({
+    required this.context,
+    required this.homeModel,
+  });
+}

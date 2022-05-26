@@ -30,9 +30,9 @@ class NavigationManager {
         arguments: ArgumentsModel(RouteType.detail, homeModel));
   }
 
-  void showFavorites(BuildContext context, [bool close = false]) {
+  void showFavorites(BuildContext context, HomeModel homeModel) {
     Navigator.pushNamed(context, FavoritesRouting.routeName,
-        arguments: ArgumentsModel(RouteType.favorites, close));
+        arguments: ArgumentsModel(RouteType.favorites, homeModel));
   }
 
   void showSplash(BuildContext context, [bool close = false]) {

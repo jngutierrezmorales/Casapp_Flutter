@@ -60,6 +60,23 @@ class _OptionsPageState extends State<OptionsPage> {
                             SizedBox(
                               height: height * 0.05,
                             ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.black,
+                                minimumSize: const Size.fromHeight(80),
+                              ),
+                              child: const Text(
+                                'Publicar anuncio',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                ),
+                              ),
+                              onPressed: () {},
+                            ),
+                            SizedBox(
+                              height: height * 0.05,
+                            ),
                             SwitchListTile(
                               title: const Text('Modo Oscuro'),
                               secondary: const Icon(Icons.dark_mode),
@@ -71,7 +88,7 @@ class _OptionsPageState extends State<OptionsPage> {
                               value: _toogleDarkMode,
                             ),
                             SizedBox(
-                              height: height * 0.4,
+                              height: height * 0.3,
                             ),
                             Center(
                               child: Row(

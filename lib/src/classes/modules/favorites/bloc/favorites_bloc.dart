@@ -14,7 +14,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   FavoritesBloc(this.favoritesRouting, this.homesAPIService) : super(const FavoritesState());
 
   @override
-  Stream<FavoritesState> mapEventState(FavoritesEvent event) async* {
+  Stream<FavoritesState> mapEventToState(FavoritesEvent event) async* {
     if (event is GetFavoritesHomesEvent) {
       yield* getFavoriteHomes();
     }

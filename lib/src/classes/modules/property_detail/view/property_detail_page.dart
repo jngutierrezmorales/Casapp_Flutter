@@ -20,6 +20,7 @@ class PropertyDetailPage extends StatefulWidget {
 
 class _PropertyDetailPageState extends State<PropertyDetailPage> {
   late PropertyDetailBloc _propertyDetailBloc;
+  HomeModel homeModel = HomeModel();
   late double latitude = 40.390768;
   late double longitude = -3.5863844;
   final Completer<GoogleMapController> _controller = Completer();
@@ -117,8 +118,11 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                             setState(() {
                               if (isFavorite) {
                                 isFavorite = false;
+                                widget.homeModel.isFavorite = false;
                               } else {
                                 isFavorite = true;
+                                widget.homeModel.isFavorite = true;
+                                _addHomeToFavoritesList(homeModel);
                               }
                             });
                           },
@@ -340,6 +344,12 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   _getHomes() {
     BlocProvider.of<PropertyDetailBloc>(context).add(
       GetHomeDataEvent(context: context),
+    );
+  }
+
+  _addHomeToFavoritesList(HomeModel homeModel) {
+    BlocProvider.of<PropertyDetailBloc>(context).add(
+      FavoriteHomesListEvent(context: context, homeModel: homeModel),
     );
   }
 }

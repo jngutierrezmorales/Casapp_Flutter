@@ -22,4 +22,8 @@ class PropertyDetailRouting extends StatelessWidget {
       child: PropertyDetailPage(homeModel),
     );
   }
+
+  void navigateToFavorites(BuildContext context, HomeModel homeModel) {
+    _navigationManager.showFavorites(context, homeModel);
+  }
 }

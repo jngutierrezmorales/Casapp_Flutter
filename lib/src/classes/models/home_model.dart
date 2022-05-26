@@ -40,6 +40,7 @@ class HomeModel {
   final double longitude;
   final String phone;
   final Affordability affordability;
+  bool isFavorite;
 
   HomeModel({
     this.id = '',
@@ -54,5 +55,6 @@ class HomeModel {
     this.longitude = 0.0,
     this.phone = '',
     this.affordability = Affordability.undefined,
+    this.isFavorite = false,
   });
 }

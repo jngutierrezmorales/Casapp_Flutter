@@ -3,8 +3,8 @@
 
     <application
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
-        android:label="casapp"
+        android:icon="@mipmap/app_icon"
+        android:label="Casapp"
         android:theme="@style/LaunchTheme">
         <activity
             android:name=".MainActivity"
