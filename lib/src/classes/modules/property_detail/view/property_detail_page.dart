@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:casapp/src/classes/modules/home/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -115,6 +116,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                           mini: true,
                           backgroundColor: Colors.black,
                           onPressed: () {
+                            BlocProvider.of<HomeBloc>(context)
+                                .add(HomeGetHomesEvent());
                             setState(() {
                               if (isFavorite) {
                                 isFavorite = false;
@@ -122,7 +125,6 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                               } else {
                                 isFavorite = true;
                                 widget.homeModel.isFavorite = true;
-                                _addHomeToFavoritesList(homeModel);
                               }
                             });
                           },
@@ -158,7 +160,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                           width: 10,
                         ),
                         Text(
-                          widget.homeModel.homeStateFor.name,
+                          widget.homeModel.homeState,
                           style: const TextStyle(
                             fontWeight: FontWeight.normal,
                             fontSize: 15,
@@ -344,12 +346,6 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   _getHomes() {
     BlocProvider.of<PropertyDetailBloc>(context).add(
       GetHomeDataEvent(context: context),
-    );
-  }
-
-  _addHomeToFavoritesList(HomeModel homeModel) {
-    BlocProvider.of<PropertyDetailBloc>(context).add(
-      FavoriteHomesListEvent(context: context, homeModel: homeModel),
     );
   }
 }

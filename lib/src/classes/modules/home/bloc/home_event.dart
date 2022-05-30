@@ -4,6 +4,8 @@ class HomeEvent {
   const HomeEvent();
 }
 
+class HomeGetHomesEvent extends HomeEvent {}
+
 class HomeNavigateToFavoritesEvent extends HomeEvent {
   final BuildContext context;
 
@@ -12,10 +14,10 @@ class HomeNavigateToFavoritesEvent extends HomeEvent {
   });
 }
 
-class HomeNavigateToSearchEvent extends HomeEvent {
+class HomeNavigateToPostNewAdEvent extends HomeEvent {
   final BuildContext context;
 
-  HomeNavigateToSearchEvent({
+  HomeNavigateToPostNewAdEvent({
     required this.context,
   });
 }

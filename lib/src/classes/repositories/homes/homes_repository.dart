@@ -6,8 +6,8 @@ class HomesRepository {
 
   HomesRepository(HomesServiceProtocol homesService) : _homesService = homesService;
 
-  List<HomeModel> getHomes() {
-    final getData = _homesService.getHomes();
+  Future<List<HomeModel>> getHomes() async {
+    final getData = await _homesService.getHomes();
     return getData;
   }
 }

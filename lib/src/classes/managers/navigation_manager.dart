@@ -7,9 +7,9 @@ import '../models/home_model.dart';
 import '../modules/favorites/routing/favorites_routing.dart';
 import '../modules/filters/routing/filters_routing.dart';
 import '../modules/options/routing/options_routing.dart';
+import '../modules/post_new_ad/routing/post_new_ad_routing.dart';
 import '../modules/property/routing/property_routing.dart';
 import '../modules/property_detail/routing/property_detail_routing.dart';
-import '../modules/search/routing/search_routing.dart';
 import '../modules/splash/routing/splash_routing.dart';
 
 // push de la pantalla que se va a mostrar
@@ -50,9 +50,9 @@ class NavigationManager {
         arguments: ArgumentsModel(RouteType.register, close));
   }
 
-  void showSearch(BuildContext context, [bool close = false]) {
-    Navigator.pushNamed(context, SearchRouting.routeName,
-    arguments: ArgumentsModel(RouteType.search, close));
+  void showPostNewAd(BuildContext context, [bool close = false]) {
+    Navigator.pushNamed(context, PostNewAdRouting.routeName,
+    arguments: ArgumentsModel(RouteType.postNewAd, close));
   }
 
   void showFilters(BuildContext context, [bool close = false]) {

@@ -1,4 +1,5 @@
 import 'package:casapp/src/classes/managers/route_manager.dart';
+import 'package:casapp/src/classes/modules/home/bloc/home_bloc.dart';
 import 'package:casapp/src/classes/modules/splash/bloc/splash_bloc.dart';
 import 'package:casapp/src/classes/providers/routing/routing_provider.dart';
 import 'package:casapp/src/classes/providers/service/service_provider.dart';
@@ -22,6 +23,9 @@ Future<void> main() async {
         BlocProvider(
           create: (_) => SplashBloc(
               _routingProvider.splashRouting(), _serviceProvider.firebaseAPIService()),
+        ),
+        BlocProvider(
+          create: (_) => HomeBloc(_routingProvider.homeRouting(), _serviceProvider.firebaseAPIService(), _serviceProvider.homesAPIService()),
         ),
       ],
       child: ChangeNotifierProvider(

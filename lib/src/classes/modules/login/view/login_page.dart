@@ -79,6 +79,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         minimumSize: Size(100, 40),
+                                        primary: Colors.black,
                                       ),
                                       onPressed: () =>
                                           (state is LoginInProgress)
@@ -92,6 +93,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         minimumSize: Size(100, 40),
+                                        primary: Colors.black,
                                       ),
                                       onPressed: () =>
                                           (state is LoginInitialState)

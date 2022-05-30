@@ -27,7 +27,7 @@ class PropertyBloc extends Bloc<PropertyEvent, PropertyState> {
   }
 
   Stream<PropertyState> getListHomes() async* {
-    final result = homesAPIService.getHomes();
+    final result = await homesAPIService.getHomes();
     yield PropertyInitialState(result);
   }
 }

@@ -12,7 +12,7 @@ enum RouteType {
   home,
   property,
   favorites,
-  search,
+  postNewAd,
   filters,
   options,
   detail,
@@ -34,8 +34,8 @@ extension RouteTypeExtension on RouteType {
         return "property";
       case RouteType.favorites:
         return "favorites";
-      case RouteType.search:
-        return "search";
+      case RouteType.postNewAd:
+        return "postNewAd";
       case RouteType.filters:
         return "filters";
       case RouteType.options:
@@ -83,15 +83,15 @@ class RouteManager {
               routeName: arguments.routeType.name);
         case RouteType.property:
           return _getSlidePageRoute(
-              view: _routingProvider.propertyRouting(),
+              view: _routingProvider.propertyRouting(arguments.parameters as List<HomeModel>),
               routeName: arguments.routeType.name);
         case RouteType.favorites:
           return _getSlidePageRoute(
-              view: _routingProvider.favoritesRouting(),
+              view: _routingProvider.favoritesRouting(arguments.parameters as List<HomeModel>),
               routeName: arguments.routeType.name);
-        case RouteType.search:
+        case RouteType.postNewAd:
           return _getSlidePageRoute(
-            view: _routingProvider.searchRouting(),
+            view: _routingProvider.postNewAdRouting(),
             routeName: arguments.routeType.name,
           );
         case RouteType.filters:

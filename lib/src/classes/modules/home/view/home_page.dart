@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
+import '../../../models/home_model.dart';
+
 class HomePage extends StatefulWidget {
   static const homePage = "homePage";
 
@@ -14,20 +16,21 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late HomeBloc _homeBloc;
   int _selectedTab = 0;
+  List<HomeModel> listHomes = [];
 
   List<Widget> _widgets = [];
 
   @override
   void initState() {
     _homeBloc = BlocProvider.of<HomeBloc>(context);
-    _loadViews();
+    _homeBloc.add(HomeGetHomesEvent());
     super.initState();
   }
 
-  void _loadViews() {
+  void _loadViews(List<HomeModel> listHomes) {
     _widgets = [
-      RoutingProvider().propertyRouting(),
-      RoutingProvider().favoritesRouting(),
+      RoutingProvider().propertyRouting(listHomes),
+      RoutingProvider().favoritesRouting(listHomes),
     ];
   }
 
@@ -62,17 +65,17 @@ class _HomePageState extends State<HomePage> {
               ),
               ListTile(
                 title: const Text(
-                  "Buscar",
+                  "Publicar anuncio",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
                 ),
                 leading: IconButton(
-                  icon: const Icon(Icons.search),
+                  icon: const Icon(Icons.add),
                   onPressed: () {},
                 ),
-                onTap: _goToSearch,
+                onTap: _goToPostNewAd,
               ),
               const Divider(
                 color: Colors.grey,
@@ -139,7 +142,14 @@ class _HomePageState extends State<HomePage> {
         ),
         body: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
-            return _widgets.elementAt(_selectedTab);
+            if (state is HomeInProgress) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is HomeSuccess) {
+              _loadViews(state.listHomes);
+              return _widgets.elementAt(_selectedTab);
+            } else {
+              return Text("Error");
+            }
           },
         ),
         bottomNavigationBar: Container(
@@ -170,8 +180,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _goToSearch() => BlocProvider.of<HomeBloc>(context).add(
-        HomeNavigateToSearchEvent(context: context),
+  _goToPostNewAd() => BlocProvider.of<HomeBloc>(context).add(
+        HomeNavigateToPostNewAdEvent(context: context),
       );
 
   _goToFilters() => BlocProvider.of<HomeBloc>(context).add(

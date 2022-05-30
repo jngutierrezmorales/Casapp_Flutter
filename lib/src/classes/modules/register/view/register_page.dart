@@ -83,6 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         minimumSize: const Size(100, 40),
+                                        primary: Colors.black,
                                       ),
                                       onPressed: () =>
                                           (state is RegisterInProgress)
@@ -96,6 +97,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         minimumSize: const Size(100, 40),
+                                        primary: Colors.black,
                                       ),
                                       onPressed: () =>
                                           (state is RegisterInitialState)

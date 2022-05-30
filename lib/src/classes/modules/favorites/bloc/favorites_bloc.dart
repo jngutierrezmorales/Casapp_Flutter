@@ -15,13 +15,6 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
 
   @override
   Stream<FavoritesState> mapEventToState(FavoritesEvent event) async* {
-    if (event is GetFavoritesHomesEvent) {
-      yield* getFavoriteHomes();
-    }
-  }
 
-  Stream<FavoritesState> getFavoriteHomes() async* {
-    final result = homesAPIService.getHomes();
-    yield FavoritesInitialState(result);
   }
 }

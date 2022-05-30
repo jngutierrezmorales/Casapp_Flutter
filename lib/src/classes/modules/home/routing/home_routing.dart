@@ -16,13 +16,13 @@ class HomeRouting extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => HomeBloc(this, _serviceProvider.firebaseAPIService()),
+      create: (_) => HomeBloc(this, _serviceProvider.firebaseAPIService(), _serviceProvider.homesAPIService()),
       child: HomePage(),
     );
   }
 
-  void navigateToSearch(BuildContext context) {
-    _navigationManager.showSearch(context);
+  void navigateToPostNewAd(BuildContext context) {
+    _navigationManager.showPostNewAd(context);
   }
 
   void navigateToFilters(BuildContext context) {

@@ -4,9 +4,9 @@ import '../../modules/favorites/routing/favorites_routing.dart';
 import '../../modules/filters/routing/filters_routing.dart';
 import '../../modules/home/routing/home_routing.dart';
 import '../../modules/options/routing/options_routing.dart';
+import '../../modules/post_new_ad/routing/post_new_ad_routing.dart';
 import '../../modules/property/routing/property_routing.dart';
 import '../../modules/property_detail/routing/property_detail_routing.dart';
-import '../../modules/search/routing/search_routing.dart';
 import '../../modules/splash/routing/splash_routing.dart';
 
 abstract class RoutingProviderProtocol {
@@ -17,7 +17,7 @@ abstract class RoutingProviderProtocol {
   PropertyRouting propertyRouting();
   PropertyDetailRouting propertyDetailRouting();
   FavoritesRouting favoritesRouting();
-  SearchRouting searchRouting();
+  PostNewAdRouting searchRouting();
   FiltersRouting filtersRouting();
   OptionsRouting optionsRouting();
 }

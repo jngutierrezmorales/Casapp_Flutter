@@ -1,5 +1,6 @@
 import '../../models/home_model.dart';
 
 abstract class HomesServiceProtocol {
-  List<HomeModel> getHomes();
+  Future<List<HomeModel>> getHomes();
+  Future<void> postData(HomeModel homeModel);
 }

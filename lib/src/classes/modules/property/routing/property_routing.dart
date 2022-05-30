@@ -11,14 +11,15 @@ class PropertyRouting extends StatelessWidget {
 
   late final NavigationManager _navigationManager;
   final _serviceProvider = ServiceProvider();
+  List<HomeModel> listHomes;
 
-  PropertyRouting(this._navigationManager);
+  PropertyRouting(this._navigationManager, this.listHomes);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => PropertyBloc(this, _serviceProvider.homesAPIService()),
-      child: PropertyPage(),
+      child: PropertyPage(listHomes),
     );
   }
 
