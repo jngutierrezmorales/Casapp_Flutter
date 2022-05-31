@@ -12,6 +12,16 @@ class GetHomeDataEvent extends PropertyDetailEvent {
   });
 }
 
+class UploadDataEvent extends PropertyDetailEvent {
+  final BuildContext context;
+  HomeModel homeModel;
+
+  UploadDataEvent({
+    required this.context,
+    required this.homeModel,
+  });
+}
+
 class FavoriteHomesListEvent extends PropertyDetailEvent {
   final BuildContext context;
   HomeModel homeModel;

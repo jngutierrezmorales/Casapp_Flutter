@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:casapp/src/classes/services/protocols/homes_service_protocol.dart';
-import 'package:flutter/cupertino.dart';
 import '../../../models/home_model.dart';
 import '../routing/favorites_routing.dart';
 

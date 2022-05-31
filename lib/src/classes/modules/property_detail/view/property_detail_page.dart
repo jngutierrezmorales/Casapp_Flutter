@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:casapp/src/classes/modules/home/bloc/home_bloc.dart';
+import 'package:casapp/src/classes/services/api/homes_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -79,7 +80,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   @override
   void initState() {
     _propertyDetailBloc = BlocProvider.of<PropertyDetailBloc>(context);
-    _propertyDetailBloc.add(GetHomeDataEvent(context: context));
+    //_propertyDetailBloc.add(GetHomeDataEvent(context: context));
+    _propertyDetailBloc.add(UploadDataEvent(context: context, homeModel: widget.homeModel));
     super.initState();
   }
 
@@ -116,20 +118,22 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                           mini: true,
                           backgroundColor: Colors.black,
                           onPressed: () {
-                            BlocProvider.of<HomeBloc>(context)
-                                .add(HomeGetHomesEvent());
                             setState(() {
-                              if (isFavorite) {
-                                isFavorite = false;
+                              if (widget.homeModel.isFavorite == true) {
+                                isFavorite = true;
                                 widget.homeModel.isFavorite = false;
                               } else {
-                                isFavorite = true;
+                                isFavorite = false;
                                 widget.homeModel.isFavorite = true;
                               }
                             });
+                            _updateData();
+                            //HomesAPIService().updateData(widget.homeModel);
                           },
                           child: Icon(
-                            isFavorite ? Icons.favorite : Icons.favorite_border,
+                            widget.homeModel.isFavorite
+                                ? Icons.favorite
+                                : Icons.favorite_border,
                             color: Colors.white,
                           ),
                         ),
@@ -346,6 +350,12 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   _getHomes() {
     BlocProvider.of<PropertyDetailBloc>(context).add(
       GetHomeDataEvent(context: context),
+    );
+  }
+
+  _updateData() {
+    BlocProvider.of<PropertyDetailBloc>(context).add(
+      UploadDataEvent(context: context, homeModel: widget.homeModel),
     );
   }
 }

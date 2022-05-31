@@ -19,12 +19,18 @@ class PropertyDetailBloc extends Bloc<PropertyDetailEvent, PropertyDetailState> 
       yield* getHomeData();
     } else if (event is FavoriteHomesListEvent) {
       addHomeToFavoriteList(event);
+    } else if (event is UploadDataEvent) {
+      updateData(event.homeModel);
     }
   }
 
   Stream<PropertyDetailState> getHomeData() async* {
     final result = await homesAPIService.getHomes();
     yield PropertyDetailInitialState(result);
+  }
+
+  Future<void> updateData(HomeModel homeModel) async {
+    await homesAPIService.updateData(homeModel);
   }
 
   void addHomeToFavoriteList (FavoriteHomesListEvent event) {

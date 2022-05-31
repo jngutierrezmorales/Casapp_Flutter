@@ -23,7 +23,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
   @override
   void initState() {
     _favoritesBloc = BlocProvider.of<FavoritesBloc>(context);
-    _favoritesBloc.add(GetFavoritesHomesEvent());
     super.initState();
   }
 
