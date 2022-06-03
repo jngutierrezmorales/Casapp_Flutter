@@ -14,10 +14,4 @@ class PropertyNavigateToDetailEvent extends PropertyEvent {
   });
 }
 
-class GetListHomesEvent extends PropertyEvent {
-  final BuildContext context;
-
-  GetListHomesEvent({
-    required this.context,
-  });
-}
+class GetListHomesEvent extends PropertyEvent {}

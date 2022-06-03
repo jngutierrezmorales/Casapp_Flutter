@@ -1,112 +1,160 @@
-import 'package:casapp/src/classes/modules/filters/routing/filters_routing.dart';
+import 'package:casapp/src/classes/modules/user_config/routing/user_config_routing.dart';
 import 'package:flutter/material.dart';
-import '../bloc/filters_bloc.dart';
+import '../bloc/user_config_bloc.dart';
 
-class FiltersPage extends StatefulWidget {
-  static const filtersPage = "filtersPage";
+class UserConfigPage extends StatefulWidget {
+  static const userConfigPage = "userConfigPage";
 
-  FiltersRouting? filtersRouting;
+  UserConfigRouting? userConfigRouting;
 
-  FiltersPage(this.filtersRouting);
+  UserConfigPage(this.userConfigRouting);
 
   @override
-  State<FiltersPage> createState() => _FiltersPageState(filtersRouting);
+  State<UserConfigPage> createState() =>
+      _UserConfigPageState(userConfigRouting);
 }
 
-class _FiltersPageState extends State<FiltersPage> {
-  FiltersRouting? filtersRouting;
+class _UserConfigPageState extends State<UserConfigPage> {
+  final TextEditingController? _phone = TextEditingController();
+  UserConfigRouting? userConfigRouting;
+  late UserConfigBloc _userConfigBloc;
 
-  _FiltersPageState(this.filtersRouting);
-
-  late FiltersBloc _filtersBloc;
-
-  bool _newHome = false;
-  bool _goodCondition = false;
-  bool _needsRenovating = false;
-
-  Widget _buildSwitchListTile(
-    String title,
-    String description,
-    bool currentValue,
-    Function updateValue,
-  ) {
-    return SwitchListTile(
-      title: Text(title),
-      value: currentValue,
-      subtitle: Text(
-        description,
-      ),
-      onChanged: (updateValue) {
-        setState(() {
-          currentValue = updateValue;
-        });
-      },
-    );
-  }
+  _UserConfigPageState(this.userConfigRouting);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Volver'),
+        title: const Text(
+          'Volver',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.save),
+            icon: const Icon(Icons.account_circle),
             onPressed: () {},
           ),
         ],
       ),
-      body: Column(
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.all(30),
-            child: const Text(
-              'Personaliza como se muestran los resultados.',
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(30),
+              child: const Text(
+                'Panel de Usuario',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40,
+                ),
+              ),
             ),
-          ),
-          Expanded(
-            child: ListView(
-              children: <Widget>[
-                _buildSwitchListTile(
-                  'Obra nueva',
-                  'Solo se muestran viviendas a estrenar.',
-                  _newHome,
-                  (newValue) {
-                    setState(() {
-                      _newHome = newValue;
-                    });
-                  },
+            SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.only(left: 40, right: 40),
+                child: Column(
+                  children: [
+                    const Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Modifica tus opciones de usuario",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    const Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "Introduce nueva contraseña:",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        hintText: 'Contraseña',
+                      ),
+                      controller: _phone,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.black,
+                        minimumSize: const Size.fromHeight(50),
+                      ),
+                      child: const Text(
+                        'Modificar contraseña',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      onPressed: () {},
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    const Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "Introduce tu número de teléfono:",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        hintText: 'Teléfono',
+                      ),
+                      controller: _phone,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.black,
+                        minimumSize: const Size.fromHeight(50),
+                      ),
+                      child: const Text(
+                        'Modificar teléfono',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      onPressed: () {},
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    Image.asset(
+                      'assets/imgs/user_config_logo.png',
+                      height: 180,
+                      width: 180,
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                _buildSwitchListTile(
-                  'Buen estado',
-                  'Se muestran viviendas de segunda mano en buenas condiciones.',
-                  _goodCondition,
-                  (newValue) {
-                    setState(() {
-                      _goodCondition = newValue;
-                    });
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                _buildSwitchListTile(
-                  'A reformar',
-                  'Se muestran viviendas que necesitan reforma para ser habitables.',
-                  _needsRenovating,
-                  (newValue) {
-                    setState(() {
-                      _needsRenovating = newValue;
-                    });
-                  },
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

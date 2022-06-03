@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'package:casapp/src/classes/modules/home/bloc/home_bloc.dart';
-import 'package:casapp/src/classes/services/api/homes_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -81,7 +79,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   void initState() {
     _propertyDetailBloc = BlocProvider.of<PropertyDetailBloc>(context);
     //_propertyDetailBloc.add(GetHomeDataEvent(context: context));
-    _propertyDetailBloc.add(UploadDataEvent(context: context, homeModel: widget.homeModel));
+    _propertyDetailBloc
+        .add(UploadDataEvent(context: context, homeModel: widget.homeModel));
     super.initState();
   }
 
@@ -89,7 +88,12 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Volver'),
+        title: const Text(
+          'Volver',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Column(
         children: [
@@ -161,7 +165,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                           color: Colors.black,
                         ),
                         const SizedBox(
-                          width: 10,
+                          width: 5,
                         ),
                         Text(
                           widget.homeModel.homeState,
@@ -178,12 +182,12 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                           color: Colors.black,
                         ),
                         const SizedBox(
-                          width: 10,
+                          width: 5,
                         ),
                         Text(
                           widget.homeModel.price,
                           style: const TextStyle(
-                            fontWeight: FontWeight.normal,
+                            fontWeight: FontWeight.bold,
                             fontSize: 15,
                           ),
                         ),
@@ -229,29 +233,6 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                     ),
                   ),
                   Container(
-                    margin:
-                        const EdgeInsets.only(right: 19, left: 19, bottom: 20),
-                    child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
-                        minimumSize: const Size.fromHeight(50),
-                      ),
-                      onPressed: _phoneCall,
-                      icon: const Icon(
-                        Icons.phone,
-                        color: Colors.white,
-                      ),
-                      label: Text(
-                        widget.homeModel.phone,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 10),
                     child: const Text(
                       'Descripción de la vivienda',
                       style: TextStyle(
@@ -273,9 +254,41 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                     ),
                   ),
                   Container(
+                    margin: const EdgeInsets.only(top: 20, bottom: 15),
+                    child: const Text(
+                      'Contactar por teléfono',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin:
+                    const EdgeInsets.only(right: 19, left: 19, bottom: 20),
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.black,
+                        minimumSize: const Size.fromHeight(50),
+                      ),
+                      onPressed: _phoneCall,
+                      icon: const Icon(
+                        Icons.phone,
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        widget.homeModel.phone,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
                     margin: const EdgeInsets.only(top: 20),
                     child: const Text(
-                      'Pregunta al anunciante',
+                      'Contactar por email',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -311,7 +324,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                         'Enviar mensaje',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 17,
+                          fontSize: 18,
                         ),
                       ),
                       onPressed: _sendEmail,

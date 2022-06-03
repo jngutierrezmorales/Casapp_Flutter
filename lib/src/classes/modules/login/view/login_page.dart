@@ -24,8 +24,8 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
 
   @override
   void initState() {
-    _usernameController.text = "test@test.com";
-    _passwordController.text = "test123";
+    _usernameController.text = "";
+    _passwordController.text = "";
     super.initState();
   }
 
@@ -42,27 +42,27 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
             if (state is LoginSuccess) _onLogged();
             return Center(
               child: Padding(
-                padding: const EdgeInsets.all(18.0),
+                padding: const EdgeInsets.only(right: 30, left: 30),
                 child: SingleChildScrollView(
                   reverse: true,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        'CASAPP',
+                        'Casapp',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 25,
+                          fontSize: 75,
                         ),
                       ),
                       SizedBox(
-                        height: height * 0.01,
+                        height: height * 0.03,
                       ),
                       Image.asset(
-                        'assets/imgs/casapp_logo.png',
+                        'assets/imgs/login_logo.png',
                       ),
                       SizedBox(
-                        height: height * 0.05,
+                        height: height * 0.04,
                       ),
                       Center(
                         child: Form(
@@ -78,28 +78,40 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                                   children: <Widget>[
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        minimumSize: Size(100, 40),
+                                        minimumSize: const Size(150, 40),
                                         primary: Colors.black,
                                       ),
                                       onPressed: () =>
                                           (state is LoginInProgress)
                                               ? null
                                               : _postLogin(),
-                                      child: const Text("Acceder"),
+                                      child: const Text(
+                                        "Acceder",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
                                     ),
                                     const SizedBox(
                                       width: 20,
                                     ),
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        minimumSize: Size(100, 40),
+                                        minimumSize: const Size(150, 40),
                                         primary: Colors.black,
                                       ),
                                       onPressed: () =>
                                           (state is LoginInitialState)
                                               ? _toRegister()
                                               : null,
-                                      child: const Text("Crear usuario"),
+                                      child: const Text(
+                                        "Crear usuario",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -123,14 +135,20 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Usuario:"),
+        const Text(
+          "Usuario:",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
         TextField(
           controller: _usernameController,
         ),
         const SizedBox(
           height: 20,
         ),
-        const Text("Contraseña:"),
+        const Text(
+          "Contraseña:",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+        ),
         TextField(
           controller: _passwordController,
           obscureText: true,

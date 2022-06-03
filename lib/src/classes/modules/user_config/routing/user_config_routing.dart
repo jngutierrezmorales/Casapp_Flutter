@@ -1,16 +1,16 @@
 import 'package:casapp/src/classes/managers/navigation_manager.dart';
 import 'package:flutter/cupertino.dart';
-import '../view/filters_page.dart';
+import '../view/user_config_page.dart';
 
-class FiltersRouting extends StatelessWidget {
-  static const routeName = "filters";
+class UserConfigRouting extends StatelessWidget {
+  static const routeName = "user_config";
 
   late final NavigationManager _navigationManager;
 
-  FiltersRouting(this._navigationManager);
+  UserConfigRouting(this._navigationManager);
 
   @override
   Widget build(BuildContext context) {
-    return FiltersPage(this);
+    return UserConfigPage(this);
   }
 }

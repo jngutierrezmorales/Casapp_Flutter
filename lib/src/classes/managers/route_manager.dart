@@ -13,7 +13,7 @@ enum RouteType {
   property,
   favorites,
   postNewAd,
-  filters,
+  userConfig,
   options,
   detail,
   logout,
@@ -36,8 +36,8 @@ extension RouteTypeExtension on RouteType {
         return "favorites";
       case RouteType.postNewAd:
         return "postNewAd";
-      case RouteType.filters:
-        return "filters";
+      case RouteType.userConfig:
+        return "user_config";
       case RouteType.options:
         return "options";
       case RouteType.detail:
@@ -94,9 +94,9 @@ class RouteManager {
             view: _routingProvider.postNewAdRouting(),
             routeName: arguments.routeType.name,
           );
-        case RouteType.filters:
+        case RouteType.userConfig:
           return _getSlidePageRoute(
-            view: _routingProvider.filtersRouting(),
+            view: _routingProvider.userConfigRouting(),
             routeName: arguments.routeType.name,
           );
         case RouteType.options:

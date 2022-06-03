@@ -5,12 +5,12 @@ import 'package:casapp/src/classes/modules/register/routing/register_routing.dar
 import 'package:flutter/cupertino.dart';
 import '../models/home_model.dart';
 import '../modules/favorites/routing/favorites_routing.dart';
-import '../modules/filters/routing/filters_routing.dart';
 import '../modules/options/routing/options_routing.dart';
 import '../modules/post_new_ad/routing/post_new_ad_routing.dart';
 import '../modules/property/routing/property_routing.dart';
 import '../modules/property_detail/routing/property_detail_routing.dart';
 import '../modules/splash/routing/splash_routing.dart';
+import '../modules/user_config/routing/user_config_routing.dart';
 
 // push de la pantalla que se va a mostrar
 
@@ -55,9 +55,9 @@ class NavigationManager {
     arguments: ArgumentsModel(RouteType.postNewAd, close));
   }
 
-  void showFilters(BuildContext context, [bool close = false]) {
-    Navigator.pushNamed(context, FiltersRouting.routeName,
-    arguments: ArgumentsModel(RouteType.filters, close));
+  void showUserConfig(BuildContext context, [bool close = false]) {
+    Navigator.pushNamed(context, UserConfigRouting.routeName,
+    arguments: ArgumentsModel(RouteType.userConfig, close));
   }
 
   void showOptions(BuildContext context, [bool close = false]) {

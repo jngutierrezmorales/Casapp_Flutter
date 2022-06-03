@@ -37,25 +37,36 @@ class _FavoritesPageState extends State<FavoritesPage> {
       child: BlocBuilder<FavoritesBloc, FavoritesState>(
         builder: (context, state) {
           if (state is FavoritesInProgress) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Colors.black,
+              ),
+            );
           } else {
-            final List<HomeModel?> favoriteHomes = widget.listFavoriteHomes
-                .map((e) {
+            final List<HomeModel?> favoriteHomes =
+                widget.listFavoriteHomes.map((e) {
               if (e.isFavorite == true) {
                 return e;
               }
             }).toList();
-            return ListView.builder(
-              itemCount: favoriteHomes.length,
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                if (favoriteHomes[index] == null) {
-                  return Container();
-                } else {
-                  return FavoriteCard(context, favoriteHomes[index]!);
-                }
+            return RefreshIndicator(
+              onRefresh: () async {
+
               },
+              child: ListView.builder(
+                itemCount: favoriteHomes.length,
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  if (favoriteHomes[index] == null) {
+                    return Container();
+                  } else {
+                    return FavoriteCard(context, favoriteHomes[index]!);
+                  }
+                },
+              ),
+              color: Colors.white,
+              backgroundColor: Colors.black,
             );
           }
         },
@@ -66,7 +77,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
 FavoriteCard(BuildContext context, HomeModel homeModel) {
   return GestureDetector(
-    onTap: () {},
+    onTap: () => _navigateToDetail(context, homeModel),
     child: Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
@@ -93,8 +104,8 @@ FavoriteCard(BuildContext context, HomeModel homeModel) {
                 bottom: 20,
                 right: 10,
                 child: Container(
-                  width: 120,
-                  color: Colors.amber,
+                  width: 130,
+                  color: Colors.black,
                   padding: const EdgeInsets.symmetric(
                     vertical: 5,
                     horizontal: 20,
@@ -104,7 +115,8 @@ FavoriteCard(BuildContext context, HomeModel homeModel) {
                       homeModel.homeState,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                        fontSize: 17,
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -123,7 +135,7 @@ FavoriteCard(BuildContext context, HomeModel homeModel) {
                       Icons.room,
                     ),
                     const SizedBox(
-                      width: 5,
+                      width: 1,
                     ),
                     Text(homeModel.location),
                   ],
@@ -134,7 +146,7 @@ FavoriteCard(BuildContext context, HomeModel homeModel) {
                       Icons.home,
                     ),
                     const SizedBox(
-                      width: 6,
+                      width: 2,
                     ),
                     Text(homeModel.size + 'm'),
                   ],
@@ -145,9 +157,11 @@ FavoriteCard(BuildContext context, HomeModel homeModel) {
                       Icons.euro,
                     ),
                     const SizedBox(
-                      width: 6,
+                      width: 1,
                     ),
-                    Text(homeModel.price),
+                    Text(
+                      homeModel.price,
+                    ),
                   ],
                 ),
               ],
@@ -156,5 +170,11 @@ FavoriteCard(BuildContext context, HomeModel homeModel) {
         ],
       ),
     ),
+  );
+}
+
+_navigateToDetail(BuildContext context, HomeModel homeModel) {
+  BlocProvider.of<FavoritesBloc>(context).add(
+    FavoritesNavigateToDetailEvent(context: context, homeModel: homeModel),
   );
 }

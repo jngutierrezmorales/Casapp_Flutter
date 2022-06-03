@@ -20,8 +20,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
     if (event is HomeNavigateToPostNewAdEvent) {
       navigateToPostNewAd(event);
-    } else if (event is HomeNavigateToFiltersEvent) {
-      navigateToFilters(event);
+    } else if (event is HomeNavigateToUserConfigEvent) {
+      navigateToUserConfig(event);
     } else if (event is HomeNavigateToOptionsEvent) {
       navigateToOptions(event);
     } else if (event is HomeToLogoutEvent) {
@@ -46,7 +46,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     homeRouting.navigateToPostNewAd(event.context);
   }
 
-  void navigateToFilters (HomeNavigateToFiltersEvent event) {
+  void navigateToUserConfig (HomeNavigateToUserConfigEvent event) {
     homeRouting.navigateToFilters(event.context);
   }
 

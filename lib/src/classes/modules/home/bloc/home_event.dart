@@ -22,10 +22,10 @@ class HomeNavigateToPostNewAdEvent extends HomeEvent {
   });
 }
 
-class HomeNavigateToFiltersEvent extends HomeEvent {
+class HomeNavigateToUserConfigEvent extends HomeEvent {
   final BuildContext context;
 
-  HomeNavigateToFiltersEvent({
+  HomeNavigateToUserConfigEvent({
     required this.context,
   });
 }

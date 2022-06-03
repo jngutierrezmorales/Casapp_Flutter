@@ -21,18 +21,24 @@ class _PropertyPageState extends State<PropertyPage> {
   @override
   void initState() {
     _propertyBloc = BlocProvider.of<PropertyBloc>(context);
+    _propertyBloc.add(GetListHomesEvent());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.listHomes.length,
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemBuilder: (context, index) {
-        return HomeCard(context, widget.listHomes[index]);
-      },
+    return RefreshIndicator(
+      onRefresh: () async {},
+      child: ListView.builder(
+        itemCount: widget.listHomes.length,
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return HomeCard(context, widget.listHomes[index]);
+        },
+      ),
+      color: Colors.white,
+      backgroundColor: Colors.black,
     );
   }
 }
@@ -66,8 +72,8 @@ HomeCard(BuildContext context, HomeModel homeModel) {
                 bottom: 20,
                 right: 10,
                 child: Container(
-                  width: 120,
-                  color: Colors.amber,
+                  width: 130,
+                  color: Colors.black,
                   padding: const EdgeInsets.symmetric(
                     vertical: 5,
                     horizontal: 20,
@@ -77,7 +83,8 @@ HomeCard(BuildContext context, HomeModel homeModel) {
                       homeModel.homeState,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                        fontSize: 17,
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -96,7 +103,7 @@ HomeCard(BuildContext context, HomeModel homeModel) {
                       Icons.room,
                     ),
                     const SizedBox(
-                      width: 5,
+                      width: 1,
                     ),
                     Text(homeModel.location),
                   ],
@@ -107,7 +114,7 @@ HomeCard(BuildContext context, HomeModel homeModel) {
                       Icons.home,
                     ),
                     const SizedBox(
-                      width: 6,
+                      width: 2,
                     ),
                     Text(homeModel.size + 'm'),
                   ],
@@ -118,9 +125,11 @@ HomeCard(BuildContext context, HomeModel homeModel) {
                       Icons.euro,
                     ),
                     const SizedBox(
-                      width: 6,
+                      width: 1,
                     ),
-                    Text(homeModel.price),
+                    Text(
+                      homeModel.price,
+                    ),
                   ],
                 ),
               ],

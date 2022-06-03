@@ -43,7 +43,12 @@ class _HomePageState extends State<HomePage> {
       onWillPop: () async => false,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Casapp'),
+          title: const Text(
+            'Casapp',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           //automaticallyImplyLeading: false,
         ),
         drawer: Drawer(
@@ -52,74 +57,78 @@ class _HomePageState extends State<HomePage> {
               Container(
                 height: 180,
                 width: double.infinity,
-                padding: const EdgeInsets.only(top: 50, bottom: 5),
+                padding: const EdgeInsets.only(top: 60, bottom: 20),
                 alignment: Alignment.centerLeft,
-                color: Colors.black,
+                color: Colors.white,
                 child: Align(
                   alignment: Alignment.center,
-                  child: Image.asset('assets/imgs/drawer_logo.jpg'),
+                  child: Image.asset('assets/imgs/menulogo.png'),
                 ),
               ),
-              const SizedBox(
-                height: 20,
+              const Divider(
+                color: Colors.black,
+                height: 5,
               ),
               ListTile(
                 title: const Text(
                   "Publicar anuncio",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: 20,
                   ),
                 ),
                 leading: IconButton(
-                  icon: const Icon(Icons.add),
+                  icon: const Icon(Icons.description),
                   onPressed: () {},
                 ),
                 onTap: _goToPostNewAd,
               ),
               const Divider(
-                color: Colors.grey,
+                color: Colors.black,
+                height: 5,
               ),
               ListTile(
                 title: const Text(
-                  "Filtros",
+                  "Perfil",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: 20,
                   ),
                 ),
                 leading: IconButton(
-                  icon: const Icon(Icons.filter_alt),
+                  icon: const Icon(Icons.account_circle),
                   onPressed: () {},
                 ),
-                onTap: _goToFilters,
+                onTap: _goToUserConfig,
               ),
               const Divider(
-                color: Colors.grey,
+                color: Colors.black,
+                height: 5,
               ),
               ListTile(
                 title: const Text(
-                  "Opciones",
+                  "Ajustes",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: 20,
                   ),
                 ),
                 leading: IconButton(
-                  icon: const Icon(Icons.menu),
+                  icon: const Icon(Icons.settings),
                   onPressed: () {},
                 ),
                 onTap: _goToOptions,
               ),
               const Divider(
-                color: Colors.grey,
+                color: Colors.black,
+                height: 5,
               ),
               ListTile(
                 title: const Text(
                   "Salir",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: 20,
                   ),
                 ),
                 leading: IconButton(
@@ -129,12 +138,13 @@ class _HomePageState extends State<HomePage> {
                 onTap: _logout,
               ),
               const Divider(
-                color: Colors.grey,
+                color: Colors.black,
+                height: 5,
               ),
               Container(
-                margin: const EdgeInsets.only(top: 10),
+                margin: const EdgeInsets.only(top: 15),
                 child: const Center(
-                  child: Text("Casapp 1.0"),
+                  child: Text("Casapp 1.0.1"),
                 ),
               ),
             ],
@@ -143,7 +153,11 @@ class _HomePageState extends State<HomePage> {
         body: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             if (state is HomeInProgress) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.black,
+                ),
+              );
             } else if (state is HomeSuccess) {
               _loadViews(state.listHomes);
               return _widgets.elementAt(_selectedTab);
@@ -165,12 +179,24 @@ class _HomePageState extends State<HomePage> {
             items: [
               SalomonBottomBarItem(
                 icon: Icon(Icons.home),
-                title: Text("Inicio"),
+                title: const Text(
+                  "Inicio",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
                 selectedColor: Colors.black,
               ),
               SalomonBottomBarItem(
-                icon: Icon(Icons.favorite),
-                title: Text("Favoritos"),
+                icon: const Icon(Icons.favorite),
+                title: const Text(
+                  "Favoritos",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
                 selectedColor: Colors.black,
               ),
             ],
@@ -184,8 +210,8 @@ class _HomePageState extends State<HomePage> {
         HomeNavigateToPostNewAdEvent(context: context),
       );
 
-  _goToFilters() => BlocProvider.of<HomeBloc>(context).add(
-        HomeNavigateToFiltersEvent(context: context),
+  _goToUserConfig() => BlocProvider.of<HomeBloc>(context).add(
+        HomeNavigateToUserConfigEvent(context: context),
       );
 
   _goToOptions() => BlocProvider.of<HomeBloc>(context).add(

@@ -1,15 +1,15 @@
-abstract class FiltersState {
-  const FiltersState();
+abstract class UserConfigState {
+  const UserConfigState();
 }
 
-class FiltersInitialState extends FiltersState {}
+class UserConfigInitialState extends UserConfigState {}
 
-class FiltersInProgress extends FiltersState {}
+class UserConfigInProgress extends UserConfigState {}
 
-class FiltersSuccess extends FiltersState {}
+class UserConfigSuccess extends UserConfigState {}
 
-class FiltersFailure extends FiltersState {
+class UserConfigFailure extends UserConfigState {
   final String error;
 
-  const FiltersFailure({required this.error});
+  const UserConfigFailure({required this.error});
 }

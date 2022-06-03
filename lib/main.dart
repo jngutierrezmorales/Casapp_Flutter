@@ -21,11 +21,14 @@ Future<void> main() async {
       providers: [
         //TODO: initialize common blocproviders in main and separate the isolated ones in their routing
         BlocProvider(
-          create: (_) => SplashBloc(
-              _routingProvider.splashRouting(), _serviceProvider.firebaseAPIService()),
+          create: (_) => SplashBloc(_routingProvider.splashRouting(),
+              _serviceProvider.firebaseAPIService()),
         ),
         BlocProvider(
-          create: (_) => HomeBloc(_routingProvider.homeRouting(), _serviceProvider.firebaseAPIService(), _serviceProvider.homesAPIService()),
+          create: (_) => HomeBloc(
+              _routingProvider.homeRouting(),
+              _serviceProvider.firebaseAPIService(),
+              _serviceProvider.homesAPIService()),
         ),
       ],
       child: ChangeNotifierProvider(
@@ -58,6 +61,7 @@ class _MyAppState extends State<MyApp> {
           color: Colors.black,
         ),
         brightness: Brightness.light,
+        fontFamily: 'Roboto',
       ),
       // darkTheme: ThemeData(
       //   brightness: Brightness.dark,

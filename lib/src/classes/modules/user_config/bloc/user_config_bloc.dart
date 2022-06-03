@@ -1,9 +1,9 @@
-import 'package:casapp/src/classes/modules/filters/routing/filters_routing.dart';
+import 'package:casapp/src/classes/modules/user_config/routing/user_config_routing.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'filters_state.dart';
+import 'user_config_state.dart';
 
-class FiltersBloc extends Bloc<FiltersBloc, FiltersState> {
-  final FiltersRouting filtersRouting;
+class UserConfigBloc extends Bloc<UserConfigBloc, UserConfigState> {
+  final UserConfigRouting userConfigRouting;
 
-  FiltersBloc(this.filtersRouting) : super(FiltersInitialState());
+  UserConfigBloc(this.userConfigRouting) : super(UserConfigInitialState());
 }

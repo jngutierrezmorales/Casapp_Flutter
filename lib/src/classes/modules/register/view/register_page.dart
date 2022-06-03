@@ -46,7 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
           builder: (context, state) {
             return Center(
               child: Padding(
-                padding: const EdgeInsets.all(18.0),
+                padding: const EdgeInsets.all(20),
                 child: SingleChildScrollView(
                   reverse: true,
                   child: Column(
@@ -82,32 +82,44 @@ class _RegisterPageState extends State<RegisterPage> {
                                   children: <Widget>[
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        minimumSize: const Size(100, 40),
+                                        minimumSize: const Size(160, 40),
                                         primary: Colors.black,
                                       ),
                                       onPressed: () =>
                                           (state is RegisterInProgress)
                                               ? null
                                               : _postRegister(),
-                                      child: const Text("Confirmar"),
+                                      child: const Text(
+                                        "Crear",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
                                     ),
                                     const SizedBox(
                                       width: 20,
                                     ),
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        minimumSize: const Size(100, 40),
+                                        minimumSize: const Size(160, 40),
                                         primary: Colors.black,
                                       ),
                                       onPressed: () =>
                                           (state is RegisterInitialState)
                                               ? _cancelToLogin()
                                               : null,
-                                      child: const Text("Cancelar"),
+                                      child: const Text(
+                                        "Volver",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -127,14 +139,26 @@ class _RegisterPageState extends State<RegisterPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Email:"),
+        const Text(
+          "Email:",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
         TextField(
           controller: _usernameController,
         ),
         const SizedBox(
           height: 20,
         ),
-        const Text("Contraseña:"),
+        const Text(
+          "Contraseña:",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
         TextField(
           controller: _passwordController,
           obscureText: true,

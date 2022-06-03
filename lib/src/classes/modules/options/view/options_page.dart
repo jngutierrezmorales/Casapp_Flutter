@@ -32,88 +32,84 @@ class _OptionsPageState extends State<OptionsPage> {
   @override
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Volver'),
+        title: const Text(
+          'Volver',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {},
+          ),
+        ],
         automaticallyImplyLeading: true,
       ),
       body: BlocBuilder<OptionsBloc, OptionsState>(
         builder: (context, state) {
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: SingleChildScrollView(
-                reverse: true,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: Form(
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/imgs/settings_logo.png',
-                              width: 120,
-                              height: 120,
-                            ),
-                            SizedBox(
-                              height: height * 0.05,
-                            ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.black,
-                                minimumSize: const Size.fromHeight(80),
-                              ),
-                              child: const Text(
-                                'Publicar anuncio',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17,
-                                ),
-                              ),
-                              onPressed: () {},
-                            ),
-                            SizedBox(
-                              height: height * 0.05,
-                            ),
-                            SwitchListTile(
-                              title: const Text('Modo Oscuro'),
-                              secondary: const Icon(Icons.dark_mode),
-                              onChanged: (value) {
-                                setState(() {
-                                  _toogleDarkMode = value;
-                                });
-                              },
-                              value: _toogleDarkMode,
-                            ),
-                            SizedBox(
-                              height: height * 0.3,
-                            ),
-                            Center(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      minimumSize: const Size(100, 40),
-                                      primary: Colors.black,
-                                    ),
-                                    onPressed: () =>
-                                        (state is OptionsInitialState)
-                                            ? _goToHome
-                                            : null,
-                                    child: const Text("Aceptar"),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+          return Padding(
+            padding: const EdgeInsets.only(top: 30, right: 20, left: 20),
+            child: SingleChildScrollView(
+              reverse: true,
+              child: Column(
+                children: [
+                  Image.asset(
+                    'assets/imgs/options_logo.png',
+                  ),
+                  const SizedBox(
+                    height: 80,
+                  ),
+                  SwitchListTile(
+                    title: const Text(
+                      'Modo Oscuro',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
                       ),
                     ),
-                  ],
-                ),
+                    secondary: const Icon(Icons.dark_mode),
+                    activeColor: Colors.black,
+                    onChanged: (value) {
+                      setState(() {
+                        _toogleDarkMode = value;
+                        if (value == false) {
+                          print("false");
+                        } else {
+                          print("true");
+                        }
+                      });
+                    },
+                    value: _toogleDarkMode,
+                  ),
+                  SizedBox(
+                    height: height * 0.30,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.black,
+                      minimumSize: const Size.fromHeight(50),
+                    ),
+                    onPressed: () {
+                      MaterialApp(
+                        theme: ThemeData(brightness: Brightness.dark),
+                      );
+                      dispose();
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      "Aplicar cambios",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           );

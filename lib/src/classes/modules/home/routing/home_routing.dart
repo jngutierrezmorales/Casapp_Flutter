@@ -26,7 +26,7 @@ class HomeRouting extends StatelessWidget {
   }
 
   void navigateToFilters(BuildContext context) {
-    _navigationManager.showFilters(context);
+    _navigationManager.showUserConfig(context);
   }
 
   void navigateToOptions(BuildContext context) {
